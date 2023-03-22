@@ -44,7 +44,7 @@ require('leyout/nav.html.php');
 <body>
 
 <div class="container">
-    <h1><?php if(isset($message)) echo $message ;?>hgfh</h1>
+    <h1><?php if(isset($message)) echo $message ;?></h1>
 <!-- Nav tabs -->
 <ul class="nav nav-tabs">
   <li class="nav-item">

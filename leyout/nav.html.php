@@ -85,7 +85,7 @@
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">agents</a>
+                    <a class="nav-link" href="agents.php">Mise a jour client</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">agents</a>

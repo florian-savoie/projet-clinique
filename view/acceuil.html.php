@@ -124,7 +124,9 @@ require('leyout/nav.html.php');
         <div class="col-3 cardTeam"><div class="card" style="width:400px;">
   <img class="card-img-top" src="assets/img/directeur.jpg" alt="Card image"style="height: 15rem;">
   <div class="card-body">
-    <h4 class="card-title">Notre directeur</h4>
+    <h4 class="card-title">Nos directeur</h4>
+    <p>Nous comptont</p>
+<p><?= $nbr[1];?> directeur</p>
 
   </div>
 </div></div>
@@ -133,7 +135,7 @@ require('leyout/nav.html.php');
   <div class="card-body">
     <h4 class="card-title">Nos patient</h4>
     <p class="card-text">Nous comptont</p>
-    <p><?= $resultat[3];?></a>
+    <p><?= $nbr[3];?> patient</p>
   </div>
 </div></div>
         <div class="col-3 cardTeam"><div class="card" style="width:400px;">
@@ -141,7 +143,7 @@ require('leyout/nav.html.php');
   <div class="card-body">
     <h4 class="card-title">Nos agent d'entretien</h4>
     <p class="card-text">Nous comptont</p>
-    <p><?= $resultat[2];?>agent d'entretien</p>
+    <p><?= $nbr[2];?> agent d'entretien</p>
   </div>
 </div></div>
 <div class="col-3 cardTeam"><div class="card" style="width:400px;">
@@ -149,7 +151,7 @@ require('leyout/nav.html.php');
     <div class="card-body">
       <h4 class="card-title">Nos medecins</h4>
       <p class="card-text">Nous comptont</p>
-      <a href="#" class="btn btn-primary"><?= $resultat[0];?>medecins</a>
+      <p><?= $nbr[0];?> medecins</p>
     </div>
   </div></div>
     </div>

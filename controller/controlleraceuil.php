@@ -9,7 +9,7 @@ function demandeConnexion($identifiant, $password, $role)
         $resultat = verifConnexion($identifiant, $password, $role);
         if ($resultat[0]) {
             creationSession($resultat[1],$role);
-header('location: moncompte.php');
+            header('location: moncompte.php');
 
         } else {
             $message = "<script>alert('Erreur de mots de passe ou d'identifiant')</script>";

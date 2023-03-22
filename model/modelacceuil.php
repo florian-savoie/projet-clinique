@@ -8,16 +8,16 @@ function nbrEmployer(){
     $tableauNbrRole = [0, 0, 0, 0];
     foreach ($result as $row) {
         switch ($row['role']) {
-            case 'agent':
+            case 'agents':
                 $tableauNbrRole[2] = $row['nbr'];
                 break;
             case 'directeur':
                 $tableauNbrRole[1] = $row['nbr'];
                 break;
-            case 'medecin':
+            case 'medecins':
                 $tableauNbrRole[0] = $row['nbr'];
                 break;
-            case 'patient':
+            case 'patients':
                 $tableauNbrRole[3] = $row['nbr'];
                 break;
         }
@@ -48,7 +48,6 @@ function creationSession($id, $role) {
         $resultat = $infoSession->fetch();
         $nom = $resultat['nom'];
         $prenom = $resultat['prenom'];
-        session_start();
         $_SESSION['id'] = $id;
         $_SESSION['nom'] = $nom;
         $_SESSION['prenom'] = $prenom;

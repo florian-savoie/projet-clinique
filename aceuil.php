@@ -1,9 +1,10 @@
 <?php
+        session_start();
+
 
 require('controller/controlleraceuil.php');
 $message = "";
-$resultat = nbrEmployer();
-
+$nbr = nbrEmployer();
 if (isset($_POST["connexion"]) && isset($_POST["identifiant"]) && isset($_POST["password"])&& isset($_POST["role"])) {
 
     $password = $_POST["password"];
@@ -11,7 +12,6 @@ if (isset($_POST["connexion"]) && isset($_POST["identifiant"]) && isset($_POST["
     $role = $_POST["role"];
 
    $message = demandeConnexion($identifiant, $password,$role);
-   echo "$role";
 }
 
 

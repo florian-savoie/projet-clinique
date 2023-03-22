@@ -12,5 +12,5 @@ if($_SESSION['connecter'] === true) {
 
 } else {
     // Rediriger l'utilisateur sur la page d'accueil
-    header('location: accueil.php');
+    header('location: aceuil.php');
 }

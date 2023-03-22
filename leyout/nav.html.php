@@ -16,14 +16,9 @@
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="#">Veuillez vous connecter pour acceder a vos données</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
+
             </ul>
         </div>
     </div>
@@ -112,11 +107,21 @@
         </button>
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav">
+
                 <li class="nav-item">
-                    <a class="nav-link" href="#">directeur</a>
+                    <a class="nav-link" href="directeur.php">modification personnel</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">directeur</a>
+                    <a class="nav-link" href="#">modification client</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">modification documents</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Statistique</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="moncompte.php">mon compte</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="deconnexion.php">Déconnexion</a>

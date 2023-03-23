@@ -75,3 +75,40 @@ function addActeBdd($ajoutacte,$montantacte){
         die('Une erreur a été trouvée : ' . $e->getMessage());
     }  
 }
+
+function infosactes(){
+    try {
+        $bdd = getdatabases();
+        $showacte = $bdd->prepare('SELECT * FROM actes_medicaux');
+        $showacte->execute();
+        $affichageacte = $showacte->fetchAll(); 
+        return $affichageacte;
+    } catch(Exception $e) {
+        die('Une erreur a été trouvée : ' . $e->getMessage());
+    }  
+}
+function actebdddelete(){
+    try {
+        $bdd = getdatabases();
+        $deleteacte = $bdd->prepare('DELETE FROM actes_medicaux WHERE id = :id');
+        $deleteacte->bindParam(':id', $_POST['deleteacte']);
+        $deleteacte->execute();
+
+    } catch(Exception $e) {
+        die('Une erreur a été trouvée : ' . $e->getMessage());
+    }  
+}
+ 
+function updateactebdd(){
+    try {
+        $bdd = getdatabases();
+        $addacte = $bdd->prepare('UPDATE actes_medicaux SET nom = :nom, prix = :prix WHERE  id = :id');
+        $addacte->bindParam(':nom', $_POST['updateacte']);
+        $addacte->bindParam(':prix', $_POST['updatemontant']);
+        $addacte->bindParam(':id', $_POST['selecteacte']);
+        $addacte->execute();
+
+    } catch(Exception $e) {
+        die('Une erreur a été trouvée : ' . $e->getMessage());
+    }   
+}

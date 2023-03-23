@@ -47,11 +47,19 @@ function addacte(){
     $ajoutacte = $_POST["ajoutacte"];
     $montantacte = $_POST["montantnewacte"];
     addActeBdd($ajoutacte,$montantacte);
-
-
+  }
+}
+function deleteacte(){
+  if (!empty($_POST["deleteacte"])){
+    actebdddelete();
   }
 }
 
+function updateacte(){
+  if (!empty($_POST["updateacte"]) && !empty($_POST["updatemontant"]) && !empty($_POST["selecteacte"])){
+updateactebdd();
+}
+}
 
 
 

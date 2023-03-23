@@ -56,6 +56,33 @@ if ($_SESSION['role'] == "directeur") {
 
       $affichageacte = infosactes();
    }
+
+   if (isset($_GET['modification_consigne']) && $_GET['modification_consigne'] == "supprimer" || isset($_GET['modification_consigne']) && $_GET['modification_consigne'] == "modifier" || isset($_GET['modification_consigne']) && $_GET['modification_consigne'] == "ajouter") {
+      $affichageacte = infosactes();
+      $affichageconsigne = infosconsigne();
+   }
+
+
+
+   if (isset($_POST['deleteconsigne'])) {
+      if (isset($_POST["iddeleteconsigne"])) {
+         deleteconsigne();
+      } else {
+         $message = "le formulaire n'est pas complet";
+      }
+   }
+
+   if (isset($_POST['updateconsigne'])) {
+      if (isset($_POST["selecteconsultation"]) && isset($_POST["updatenewconsigne"]) && isset($_POST["idupdateconsigne"])) {
+         updateconsigne();
+      } else {
+         $message = "le formulaire n'est pas complet";
+      }
+   }
+
+
+
+
 } else {
    // Rediriger l'utilisateur sur la page d'accueil
    header('location: aceuil.php');

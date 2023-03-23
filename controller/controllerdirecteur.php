@@ -62,6 +62,19 @@ updateactebdd();
 }
 
 
+function deleteconsigne(){
+  if (!empty($_POST["iddeleteconsigne"])){
+    consignebdddelete();
+  }
+}
+
+function updateconsigne(){
+  if (!empty($_POST["selecteconsultation"]) && !empty($_POST["updatenewconsigne"]) && !empty($_POST["idupdateconsigne"])){
+updateaconsigne();
+}
+}
+
+
 
 
 

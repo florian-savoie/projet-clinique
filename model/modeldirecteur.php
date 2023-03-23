@@ -63,6 +63,22 @@ function deleteBddMedecin($identifiant,$password) {
         die('Une erreur a été trouvée : ' . $e->getMessage());
     }  
 }
+
+
+function infosactes(){
+    try {
+        $bdd = getdatabases();
+        $showacte = $bdd->prepare('SELECT * FROM actes_medicaux');
+        $showacte->execute();
+        $affichageacte = $showacte->fetchAll(); 
+        return $affichageacte;
+    } catch(Exception $e) {
+        die('Une erreur a été trouvée : ' . $e->getMessage());
+    }  
+}
+
+
+
 function addActeBdd($ajoutacte,$montantacte){
     try {
         $bdd = getdatabases();
@@ -76,17 +92,6 @@ function addActeBdd($ajoutacte,$montantacte){
     }  
 }
 
-function infosactes(){
-    try {
-        $bdd = getdatabases();
-        $showacte = $bdd->prepare('SELECT * FROM actes_medicaux');
-        $showacte->execute();
-        $affichageacte = $showacte->fetchAll(); 
-        return $affichageacte;
-    } catch(Exception $e) {
-        die('Une erreur a été trouvée : ' . $e->getMessage());
-    }  
-}
 function actebdddelete(){
     try {
         $bdd = getdatabases();
@@ -111,4 +116,43 @@ function updateactebdd(){
     } catch(Exception $e) {
         die('Une erreur a été trouvée : ' . $e->getMessage());
     }   
+}
+
+function infosconsigne(){
+    try {
+        $bdd = getdatabases();
+        $showconsigne = $bdd->prepare('SELECT * FROM consignes');
+        $showconsigne->execute();
+        $affichageconsigne = $showconsigne->fetchAll(); 
+        return $affichageconsigne;
+    } catch(Exception $e) {
+        die('Une erreur a été trouvée : ' . $e->getMessage());
+    }  
+}
+
+function consignebdddelete(){
+    try {
+        $bdd = getdatabases();
+        $deleteacte = $bdd->prepare('DELETE FROM consignes WHERE id = :id');
+        $deleteacte->bindParam(':id', $_POST['iddeleteconsigne']);
+        $deleteacte->execute();
+
+    } catch(Exception $e) {
+        die('Une erreur a été trouvée : ' . $e->getMessage());
+    }  
+}
+
+
+function updateaconsigne(){
+    try {
+        $bdd = getdatabases();
+        $updateacte = $bdd->prepare('UPDATE consignes SET acte_id = :acteid, consigne = :newsconsigne WHERE  id = :id');
+        $updateacte->bindParam(':acteid', $_POST['selecteconsultation']);
+        $updateacte->bindParam(':newsconsigne', $_POST['updatenewconsigne']);
+        $updateacte->bindParam(':id', $_POST['idupdateconsigne']);
+        $updateacte->execute();
+
+    } catch(Exception $e) {
+        die('Une erreur a été trouvée : ' . $e->getMessage());
+    }  
 }

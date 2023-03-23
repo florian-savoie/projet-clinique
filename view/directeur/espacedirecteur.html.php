@@ -63,7 +63,7 @@
                 <a class="nav-link" data-bs-toggle="tab" href="#ajoutacte">Ajout/modifier/suprimer actes</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#menu2"></a>
+                <a class="nav-link" data-bs-toggle="tab" href="#ajouteconsigne">Ajout/modifier/suprimer consignes</a>
             </li>
         </ul>
 
@@ -158,7 +158,7 @@
                 </form>
 
             </div>
-
+  <!-- ajouter supprimer modifier acte  -->
             <div class="tab-pane container fade" id="ajoutacte">
 
                 <form class="col-md-6 offset-md-3 p-3 bg-light" method="GET">
@@ -250,6 +250,109 @@
                     </form>
                 <?php } ?>
             </div>
+
+ <!-- ajouter supprimer modifier consigne  -->
+ <div class="tab-pane container fade" id="ajouteconsigne">
+
+<form class="col-md-6 offset-md-3 p-3 bg-light" method="GET">
+    <fieldset>
+        <legend class="text-center mb-4">action modification de consignes</legend>
+
+        <div class="form-group">
+            <label for="modification_consigne">quelle action souhaitez vous faire :</label>
+            <select class="form-control" name="modification_consigne" id="modification_consigne">
+                <option value="ajouter">ajouter</option>
+                <option value="supprimer">supprimer</option>
+                <option value="modifier">modifier</option>
+            </select>
+        </div>
+        <div class="text-center">
+            <button class="btn btn-primary" name="" value="" type="submit">choisir</button>
+        </div>
+    </fieldset>
+</form>
+<?php if (isset($_GET['modification_consigne']) && $_GET['modification_consigne'] == "ajouter") { ?>
+
+    <form class="col-md-6 offset-md-3 p-3 bg-light" method="POST">
+        <fieldset>
+            <legend class="text-center mb-4">Ajouter un acte </legend>
+
+            <div class="form-group">
+                <label for="ajoutconsigne">consigne</label>
+                <input class="form-control" type="text" id="ajoutconsigne" name="ajoutconsigne" value="" required>
+            </div>
+            <div class="form-group">
+                <label for="montantnewconsigne">acte medical  </label>
+                <input class="form-control" type="text" id="montantnewconsigne" name="montantnewconsigne" value="" required>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary" name="addconsigne" value="addconsigne" type="submit">ajouter</button>
+            </div>
+        </fieldset>
+    </form>
+<?php } ?>
+
+
+<?php if (isset($_GET['modification_consigne']) && $_GET['modification_consigne'] == "supprimer") { ?>
+    <form class="col-md-6 offset-md-3 p-3 bg-light" method="POST">
+        <fieldset>
+            <legend class="text-center mb-4">supprimer </legend>
+
+            <div class="form-group">
+                <label for="deleteconsigne">liste des actes disponible</label>
+                <select class="form-control" name="iddeleteconsigne" id="iddeleteconsigne">
+                    <?php foreach ($affichageconsigne as $consigne) { ?>
+                        <option value="<?= $consigne['id'] ?>"><?= $consigne['acte_id'] . " au prix de " . $consigne['consigne'] ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary" name="deleteconsigne" value="deleteconsigne" type="submit">Supprimer</button>
+            </div>
+        </fieldset>
+    </form>
+<?php } ?>
+
+<?php if (isset($_GET['modification_consigne']) && $_GET['modification_consigne'] == "modifier") { ?>
+    <form class="col-md-6 offset-md-3 p-3 bg-light" method="POST">
+        <fieldset>
+            <legend class="text-center mb-4">Modifier </legend>
+
+            <div class="form-group">
+                <label for="idupdateconsigne">liste des actes a modifier</label>
+                <select class="form-control" name="idupdateconsigne" id="idupdateconsigne">
+                    <?php foreach ($affichageconsigne as $consigne) { ?>
+                        <option value="<?= $consigne['id'] ?>"><?= $consigne['acte_id'] . " au prix de " . $consigne['consigne'] ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="updatenewconsigne">consigne</label>
+                <input class="form-control" type="text" id="updatenewconsigne" name="updatenewconsigne" value="" required>
+
+
+              
+            </div>
+            <div class="form-group">
+                                <label for="selecteconsultation">type de consultation</label>
+                                <select class="form-control" name="selecteconsultation" id="selecteconsultation">
+                                    <?php foreach ($affichageacte as $acte) { ?>
+                                        <option value="<?= $acte['id'] ?>"><?= $acte['nom']  ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+            <div class="text-center">
+                <button class="btn btn-primary" name="updateconsigne" value="updateconsigne" type="submit">Modifier</button>
+            </div>
+        </fieldset>
+    </form>
+<?php } ?>
+</div>
+
+
+            
+            <div class="tab-pane container fade" id="menu2">...</div>
+            <div class="tab-pane container fade" id="menu2">...</div>
             <div class="tab-pane container fade" id="menu2">...</div>
         </div>
     </div>

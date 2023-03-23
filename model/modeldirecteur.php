@@ -63,3 +63,15 @@ function deleteBddMedecin($identifiant,$password) {
         die('Une erreur a été trouvée : ' . $e->getMessage());
     }  
 }
+function addActeBdd($ajoutacte,$montantacte){
+    try {
+        $bdd = getdatabases();
+
+        $addactebdd = $bdd->prepare('INSERT INTO actes_medicaux (nom, prix) VALUES (:ajoutacte, :montantacte)');
+        $addactebdd->bindParam(':ajoutacte', $ajoutacte);
+        $addactebdd->bindParam(':montantacte', $montantacte);
+        $addactebdd->execute();
+    } catch(Exception $e) {
+        die('Une erreur a été trouvée : ' . $e->getMessage());
+    }  
+}

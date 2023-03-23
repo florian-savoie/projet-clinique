@@ -42,7 +42,15 @@ function Addmedecin(){
     }
   }
 
+function addacte(){
+  if (!empty($_POST["ajoutacte"]) && !empty($_POST["montantnewacte"])){
+    $ajoutacte = $_POST["ajoutacte"];
+    $montantacte = $_POST["montantnewacte"];
+    addActeBdd($ajoutacte,$montantacte);
 
+
+  }
+}
 
 
 

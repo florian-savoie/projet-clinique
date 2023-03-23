@@ -26,6 +26,17 @@ if ($_SESSION['role'] == "directeur") {
             $message = "le formulaire n'est pas complet";
         }
      }
+
+
+     if (isset($_POST['addacte'])){
+        if (isset($_POST["ajoutacte"]) && isset($_POST["montantnewacte"])) {
+           addacte();
+        } else {
+            $message = "le formulaire n'est pas complet";
+        }
+     }
+
+
 } else {
     // Rediriger l'utilisateur sur la page d'accueil
     header('location: aceuil.php');

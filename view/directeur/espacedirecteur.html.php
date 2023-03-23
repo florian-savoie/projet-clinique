@@ -57,7 +57,7 @@ require('leyout/nav.html.php');
     <a class="nav-link " data-bs-toggle="tab" href="#deletemedecin">supprimer medecin</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" data-bs-toggle="tab" href="#menu1">Menu 1</a>
+    <a class="nav-link" data-bs-toggle="tab" href="#ajoutacte">Ajout actes</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" data-bs-toggle="tab" href="#menu2">Menu 2</a>
@@ -155,7 +155,25 @@ require('leyout/nav.html.php');
 </form>
 
   </div>
-  <div class="tab-pane container fade" id="menu1">...</div>
+  <div class="tab-pane container fade" id="ajoutacte">
+  <form class="col-md-6 offset-md-3 p-3 bg-light"  method="POST">
+    <fieldset>
+        <legend class="text-center mb-4">Ajouter un acte </legend>
+
+        <div class="form-group">
+            <label for="ajoutacte">Type d'acte</label>
+            <input class="form-control" type="text" id="ajoutacte" name="ajoutacte" value="" required>
+        </div>
+        <div class="form-group">
+            <label for="montantnewacte">montant de l'acte </label>
+            <input class="form-control" type="text" id="montantnewacte" name="montantnewacte" value="" required>
+        </div>
+        <div class="text-center">
+            <button class="btn btn-primary"name="addacte" value="addacte" type="submit">Supprimer</button>
+        </div>
+    </fieldset>
+</form>
+  </div>
   <div class="tab-pane container fade" id="menu2">...</div>
 </div>
 </div>

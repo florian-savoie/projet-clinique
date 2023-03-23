@@ -51,7 +51,7 @@
         <!-- Nav tabs -->
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link active" href="?modifInfos=show">Modifier informations patient</a>
+                <a class="nav-link " href="?modifInfos=show">Modifier informations patient</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="?synthesepatient=show">synthèse patient</a>
@@ -60,7 +60,7 @@
                 <a class="nav-link" href="?Payemment=show">Payemment</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled" href="rendezvous=show">Lesr rendez-vous</a>
+                <a class="nav-link " href="?rendezvous=show">Les rendez-vous</a>
             </li>
         </ul>
 
@@ -230,10 +230,10 @@
             <!-- Formulaire  -->
 
             <?php
-            if (isset($alertpaiement)){?>
-          <h1><?= $alertpaiement ?></h1>
-           <?php  }
-            
+            if (isset($alertpaiement)) { ?>
+                <h1><?= $alertpaiement ?></h1>
+            <?php  }
+
             if (!empty($patientpaiments)) : ?>
                 <div class="container mt-3">
                     <h2>Information du patient </h2>
@@ -294,23 +294,52 @@
                                 <td style="font-size:0.75rem;"><?= $rdv['compte_rendu'] ?></td>
                                 <td style="font-size:0.75rem;"><?= $rdv['prix'] ?></td>
                                 <td style="font-size:0.75rem;"><?= $rdv['statut'] ?></td>
-                           <?php if($rdv['statut'] != "paye"){ ?>
-<td>
-                                    <form method="POST" action="">
-                                    <input type="hidden" name="searchpaiement" value="<?= $patientpaiments['nom'] ?>">
-                                    <input type="hidden" name="soldeclient" value="<?= $patientpaiments['solde'] ?>">
-                                    <input type="hidden" name="id_patient" value="<?= $patientpaiments['id_patient'] ?>">
-                                    <input type="hidden" name="prixpaiement" value="<?= $rdv['prix'] ?>">
-<a href="?Payemment=show"><button type="submit" class="btn btn-success" value="<?= $rdv['id'] ?>" name="statuspayer" 75style="font-size:0.7rem;">payer</button></a>
-                                    </form>
-                                </td>
-                          <?php } ?>     
+                                <?php if ($rdv['statut'] != "paye") { ?>
+                                    <td>
+                                        <form method="POST" action="">
+                                            <input type="hidden" name="searchpaiement" value="<?= $patientpaiments['nom'] ?>">
+                                            <input type="hidden" name="soldeclient" value="<?= $patientpaiments['solde'] ?>">
+                                            <input type="hidden" name="id_patient" value="<?= $patientpaiments['id_patient'] ?>">
+                                            <input type="hidden" name="prixpaiement" value="<?= $rdv['prix'] ?>">
+                                            <a href="?Payemment=show"><button type="submit" class="btn btn-success" value="<?= $rdv['id'] ?>" name="statuspayer" 75style="font-size:0.7rem;">payer</button></a>
+                                        </form>
+                                    </td>
+                                <?php } ?>
                             </tr>
                         <?php endforeach; ?>
                     </table>
                 </div>
 
             <?php endif; ?>
+
+        <?php
+        }
+        ?>
+        <?php
+        if (isset($_GET['rendezvous']) && $_GET['rendezvous'] === 'show') {
+        ?>
+            <!-- Formulaire de synthese patient -->
+            <div class="container my-5">
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <form method="POST" action="">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="searchpaiement" id="searchpaiement" value="Nom du patient" required>
+                                <select class="form-control" name="situationFamiliale" id="situationFamiliale">
+                                    <option value="" disabled selected>Type de rendez-vous</option>
+                                    <option value="celibataire">Radiographie</option>
+                                    <option value="marié">Scanner</option>
+                                    <option value="divorce">IRM</option>
+                                    <option value="veuf">Chirurgie</option>
+                                </select>
+                                <button type="submit" class="btn btn-primary" value="recherchepatientPayemment" name="recherchepatientPayemment">Regarder les disponibilités</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
 
         <?php
         }

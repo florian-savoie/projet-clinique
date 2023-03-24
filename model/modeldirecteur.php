@@ -1,4 +1,86 @@
 <?php 
+
+function bdd0Bindparam($requete){
+ 
+        try {
+            $bdd = getdatabases();
+            $showacte = $bdd->prepare($requete);
+            $showacte->execute();
+            $affichageacte = $showacte->fetchAll(); 
+            return $affichageacte;
+        } catch(Exception $e) {
+            die('Une erreur a été trouvée : ' . $e->getMessage());
+        }  
+    }
+
+    function bdd1Bindparam($requete,$parametre1){
+        try {
+            $bdd = getdatabases();
+            $requete = $bdd->prepare($requete);
+            $requete->bindParam(':parametre1', $parametre1);
+            $requete->execute();
+            $requete->closeCursor();
+            return true;
+        } catch(Exception $e) {
+            die('Une erreur a été trouvée : ' . $e->getMessage());
+        }  
+
+
+    }
+
+    function bdd2Bindparam($requete,$parametre1,$parametre2){
+        try {
+            $bdd = getdatabases();
+            $requete = $bdd->prepare($requete);
+            $requete->bindParam(':parametre1', $parametre1);
+            $requete->bindParam(':parametre2', $parametre2);
+            $requete->execute();
+            $requete->closeCursor();
+            return true;
+        } catch(Exception $e) {
+            die('Une erreur a été trouvée : ' . $e->getMessage());
+        }  
+
+
+    }
+
+
+    function bdd3Bindparam($requete,$parametre1,$parametre2,$parametre3){
+        try {
+            $bdd = getdatabases();
+            $requete = $bdd->prepare($requete);
+            $requete->bindParam(':parametre1', $parametre1);
+            $requete->bindParam(':parametre2', $parametre2);
+            $requete->bindParam(':parametre3', $parametre3);
+            $requete->execute();
+            $requete->closeCursor();
+            return true;
+        } catch(Exception $e) {
+            die('Une erreur a été trouvée : ' . $e->getMessage());
+        }  
+
+
+    }
+
+
+    function bdd4Bindparam($requete,$parametre1,$parametre2,$parametre3,$parametre4){
+        try {
+            $bdd = getdatabases();
+            $requete = $bdd->prepare($requete);
+            $requete->bindParam(':parametre1', $parametre1);
+            $requete->bindParam(':parametre2', $parametre2);
+            $requete->bindParam(':parametre3', $parametre3);
+            $requete->bindParam(':parametre4', $parametre4);
+            $requete->execute();
+            $requete->closeCursor();
+            return true;
+        } catch(Exception $e) {
+            die('Une erreur a été trouvée : ' . $e->getMessage());
+        }  
+    }
+
+
+
 function updateMdpLogin($identifiant, $password, $newidentifiant, $newpassword, $role) {
     try {
         $bdd = getdatabases();

@@ -57,12 +57,12 @@ if ($_SESSION['role'] == "directeur") {
       $affichageacte = infosactes();
    }
 
+
+
    if (isset($_GET['modification_consigne']) && $_GET['modification_consigne'] == "supprimer" || isset($_GET['modification_consigne']) && $_GET['modification_consigne'] == "modifier" || isset($_GET['modification_consigne']) && $_GET['modification_consigne'] == "ajouter") {
       $affichageacte = infosactes();
       $affichageconsigne = infosconsigne();
    }
-
-
 
    if (isset($_POST['deleteconsigne'])) {
       if (isset($_POST["iddeleteconsigne"])) {
@@ -79,6 +79,71 @@ if ($_SESSION['role'] == "directeur") {
          $message = "le formulaire n'est pas complet";
       }
    }
+
+   if (isset($_POST['addconsigne'])) {
+      if (isset($_POST["ajoutconsigne"]) && isset($_POST["selecteconsultation"])) {
+         addconsigne();
+      } else {
+         $message = "le formulaire n'est pas complet";
+      }
+   }
+   if (isset($_GET['ajoutepieceafournir']) && $_GET['ajoutepieceafournir'] == "supprimer" || isset($_GET['ajoutepieceafournir']) && $_GET['ajoutepieceafournir'] == "modifier" || isset($_GET['ajoutepieceafournir']) && $_GET['ajoutepieceafournir'] == "ajouter") {
+      $affichageacte = infosactes();
+      $requete = 'SELECT * FROM pieces_fournir';
+      $affichagepiecesafournir = bdd0Bindparam($requete);
+      
+   }
+
+   if (isset($_POST['addpiecefournir'])) {
+      if (isset($_POST["ajoutpiecefournir"]) && isset($_POST["selectacte"])) {
+         addpiecefournir();
+      } else {
+         $message = "le formulaire n'est pas complet";
+      }
+   }
+
+   if (isset($_POST['updatepiece'])) {
+      if (isset($_POST["updateidacte"]) && isset($_POST["updatenewconsigne"])&& isset($_POST["updatenewconsigne"])) {
+         updatepiecefournir();
+      } else {
+         $message = "le formulaire n'est pas complet";
+      }
+   }
+
+   if (isset($_POST['deletepiece'])) {
+      if (isset($_POST["iddeletepiece"])) {
+         deletepiecefournir();
+      } else {
+         $message = "le formulaire n'est pas complet";
+      }
+   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

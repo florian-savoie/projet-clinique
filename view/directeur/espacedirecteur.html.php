@@ -65,6 +65,9 @@
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="tab" href="#ajouteconsigne">Ajout/modifier/suprimer consignes</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#ajoutepieceafournir">Ajout/modifier/suprimer pieces a fournir</a>
+            </li>
         </ul>
 
         <!-- Tab panes -->
@@ -282,9 +285,13 @@
                 <input class="form-control" type="text" id="ajoutconsigne" name="ajoutconsigne" value="" required>
             </div>
             <div class="form-group">
-                <label for="montantnewconsigne">acte medical  </label>
-                <input class="form-control" type="text" id="montantnewconsigne" name="montantnewconsigne" value="" required>
-            </div>
+                                <label for="selecteconsultation">type de consultation</label>
+                                <select class="form-control" name="selecteconsultation" id="selecteconsultation">
+                                    <?php foreach ($affichageacte as $acte) { ?>
+                                        <option value="<?= $acte['id'] ?>"><?= $acte['nom']  ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
             <div class="text-center">
                 <button class="btn btn-primary" name="addconsigne" value="addconsigne" type="submit">ajouter</button>
             </div>
@@ -349,6 +356,108 @@
 <?php } ?>
 </div>
 
+
+ <!-- ajouter supprimer modifier pieces a fournir   -->
+ <div class="tab-pane container fade" id="ajoutepieceafournir">
+
+<form class="col-md-6 offset-md-3 p-3 bg-light" method="GET">
+    <fieldset>
+        <legend class="text-center mb-4">action modification de consignes</legend>
+
+        <div class="form-group">
+            <label for="ajoutepieceafournir">quelle action souhaitez vous faire :</label>
+            <select class="form-control" name="ajoutepieceafournir" id="ajoutepieceafournir">
+                <option value="ajouter">ajouter</option>
+                <option value="supprimer">supprimer</option>
+                <option value="modifier">modifier</option>
+            </select>
+        </div>
+        <div class="text-center">
+            <button class="btn btn-primary" name="" value="" type="submit">choisir</button>
+        </div>
+    </fieldset>
+</form>
+<?php if (isset($_GET['ajoutepieceafournir']) && $_GET['ajoutepieceafournir'] == "ajouter") { ?>
+
+    <form class="col-md-6 offset-md-3 p-3 bg-light" method="POST">
+        <fieldset>
+            <legend class="text-center mb-4">Ajouter une piece a fournir  </legend>
+
+            <div class="form-group">
+                <label for="ajoutpiecefournir">pieces a fournir </label>
+                <input class="form-control" type="text" id="ajoutpiecefournir" name="ajoutpiecefournir" value="" required>
+            </div>
+            <div class="form-group">
+                                <label for="selectacte">type d'acte</label>
+                                <select class="form-control" name="selectacte" id="selectacte">
+                                    <?php foreach ($affichageacte as $acte) { ?>
+                                        <option value="<?= $acte['id'] ?>"><?= $acte['nom']  ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+            <div class="text-center">
+                <button class="btn btn-primary" name="addpiecefournir" value="addpiecefournir" type="submit">ajouter</button>
+            </div>
+        </fieldset>
+    </form>
+<?php } ?>
+
+
+<?php if (isset($_GET['ajoutepieceafournir']) && $_GET['ajoutepieceafournir'] == "supprimer") { ?>
+    <form class="col-md-6 offset-md-3 p-3 bg-light" method="POST">
+        <fieldset>
+            <legend class="text-center mb-4">supprimer </legend>
+
+            <div class="form-group">
+                <label for="iddeletepiece">liste des pieces a fournir disponible</label>
+                <select class="form-control" name="iddeletepiece" id="iddeletepiece">
+                    <?php foreach ($affichagepiecesafournir as $pieces) { ?>
+                        <option value="<?= $pieces['id'] ?>"><?=$pieces['piece'] ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary" name="deletepiece" value="deletepiece" type="submit">Supprimer</button>
+            </div>
+        </fieldset>
+    </form>
+<?php } ?>
+
+<?php if (isset($_GET['ajoutepieceafournir']) && $_GET['ajoutepieceafournir'] == "modifier") { ?>
+    <form class="col-md-6 offset-md-3 p-3 bg-light" method="POST">
+        <fieldset>
+            <legend class="text-center mb-4">Modifier </legend>
+
+            <div class="form-group">
+                <label for="idupdateconsigne">liste des pieces a fournir a modifier</label>
+                <select class="form-control" name="idupdateconsigne" id="idupdateconsigne">
+                    <?php foreach ($affichagepiecesafournir as $pieces) { ?>
+                        <option value="<?= $pieces['id'] ?>"><?=$pieces['piece'] ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="updatenewconsigne">consigne</label>
+                <input class="form-control" type="text" id="updatenewconsigne" name="updatenewconsigne" value="" required>
+
+
+              
+            </div>
+            <div class="form-group">
+                                <label for="updateidacte">type de consultation</label>
+                                <select class="form-control" name="updateidacte" id="updateidacte">
+                                    <?php foreach ($affichageacte as $acte) { ?>
+                                        <option value="<?= $acte['id'] ?>"><?= $acte['nom']  ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+            <div class="text-center">
+                <button class="btn btn-primary" name="updatepiece" value="updatepiece" type="submit">Modifier</button>
+            </div>
+        </fieldset>
+    </form>
+<?php } ?>
+</div>
 
             
             <div class="tab-pane container fade" id="menu2">...</div>

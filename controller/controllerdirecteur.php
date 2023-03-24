@@ -74,6 +74,32 @@ updateaconsigne();
 }
 }
 
+function addconsigne(){
+  if (!empty($_POST["selecteconsultation"]) && !empty($_POST["ajoutconsigne"])){
+  $requete = 'INSERT INTO consignes (acte_id , consigne) VALUES (:parametre1 ,:parametre2)'; 
+   bdd2Bindparam($requete,$_POST["selecteconsultation"],($_POST["ajoutconsigne"]));
+
+}
+}
+
+function addpiecefournir(){
+  if (!empty($_POST["ajoutpiecefournir"]) && !empty($_POST["selectacte"])){
+  $requete = 'INSERT INTO pieces_fournir (piece , acte_id) VALUES (:parametre1 ,:parametre2)'; 
+   bdd2Bindparam($requete,$_POST["ajoutpiecefournir"],$_POST["selectacte"]);
+}
+}
+
+function updatepiecefournir(){
+  if (!empty($_POST["idupdateconsigne"]) && !empty($_POST["updateidacte"])&& !empty($_POST["updatenewconsigne"])){
+  $requete = 'UPDATE  pieces_fournir SET acte_id = :parametre2 , piece = :parametre3 WHERE id = :parametre1';
+   bdd3Bindparam($requete,$_POST["idupdateconsigne"],$_POST["updateidacte"],$_POST["updatenewconsigne"]);
+}
+}
+function deletepiecefournir(){
+  if (!empty($_POST["iddeletepiece"])){
+    $requete = 'DELETE FROM pieces_fournir WHERE id =:parametre1';
+    bdd1Bindparam($requete,$_POST["iddeletepiece"]);  }
+}
 
 
 

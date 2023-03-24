@@ -101,11 +101,30 @@ function deletepiecefournir(){
     bdd1Bindparam($requete,$_POST["iddeletepiece"]);  }
 }
 
+function annuairemedecins(){
+  $requete = 'SELECT * FROM medecins';
+  $affichageannuaire = bdd0Bindparam($requete);
+  return $affichageannuaire ;
+}
 
+function lesrdventre2dates(){
+if (!empty($_POST["datedebut"]) && !empty($_POST["datefin"])) {
+  $datedebut = $_POST["datedebut"]." 00:00:00";
+  $datefin = $_POST["datefin"]." 00:00:00";
+  $requete = 'SELECT * FROM rdv WHERE date_heure BETWEEN \''.$datedebut.'\' AND \''.$datefin.'\'';
+  $affichageannuaire = bdd0Bindparam($requete);
+  return $affichageannuaire ;
+}
+}
 
-
-
-
+function nbrpatientsoldeinfieur(){
+  if (!empty($_POST["montantsoldeinferieur"])) {
+    $requete = 'SELECT COUNT(*) AS nombre_de_lignes FROM patients WHERE solde < :parametre1';
+    $resultat = bdd1Bindparam($requete,$_POST["montantsoldeinferieur"]);
+    $resultat = $resultat->fetchAll();
+    return $resultat ;
+  }
+}
 
 
 

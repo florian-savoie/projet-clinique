@@ -118,7 +118,10 @@
                     <a class="nav-link" href="#">modification documents</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Statistique</a>
+                    <a class="nav-link" href="directeur-statistiques.php">Statistique</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="directeur-lesmedecins.php">les medecins</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="moncompte.php">mon compte</a>

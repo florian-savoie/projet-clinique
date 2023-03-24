@@ -19,8 +19,7 @@ function bdd0Bindparam($requete){
             $requete = $bdd->prepare($requete);
             $requete->bindParam(':parametre1', $parametre1);
             $requete->execute();
-            $requete->closeCursor();
-            return true;
+            return $requete;
         } catch(Exception $e) {
             die('Une erreur a été trouvée : ' . $e->getMessage());
         }  
@@ -35,8 +34,7 @@ function bdd0Bindparam($requete){
             $requete->bindParam(':parametre1', $parametre1);
             $requete->bindParam(':parametre2', $parametre2);
             $requete->execute();
-            $requete->closeCursor();
-            return true;
+            return $requete;
         } catch(Exception $e) {
             die('Une erreur a été trouvée : ' . $e->getMessage());
         }  
@@ -53,8 +51,7 @@ function bdd0Bindparam($requete){
             $requete->bindParam(':parametre2', $parametre2);
             $requete->bindParam(':parametre3', $parametre3);
             $requete->execute();
-            $requete->closeCursor();
-            return true;
+            return $requete;
         } catch(Exception $e) {
             die('Une erreur a été trouvée : ' . $e->getMessage());
         }  
@@ -72,8 +69,8 @@ function bdd0Bindparam($requete){
             $requete->bindParam(':parametre3', $parametre3);
             $requete->bindParam(':parametre4', $parametre4);
             $requete->execute();
-            $requete->closeCursor();
-            return true;
+            return $requete;
+
         } catch(Exception $e) {
             die('Une erreur a été trouvée : ' . $e->getMessage());
         }  

@@ -113,36 +113,70 @@
             </div>
         </form>
         <?php
+
+
+
+
+
+
+
+
+
+
+
         $current_month = date("n");
         $current_year = date("Y");
-        function generate_calendar($year, $month)
+        function generate_calendar($year, $month, $agenda)
         {
+            $jours = array();
+        
+            foreach ($agenda as $resultat) {
+                $date = date_parse($resultat['date_heure']);
+                $annee = $date['year'];
+                $mois = $date['month'];
+                $jour = $date['day'];
+        
+                if ($mois == $month && $year == $annee) {
+                    $jours[] = $jour;
+                }
+            }
+        
+            var_dump($jours);
+            echo $jours[1] . "testttt";
             $days_in_month = cal_days_in_month(CAL_GREGORIAN, $month, $year);
             $first_day = date("N", mktime(0, 0, 0, $month, 1, $year));
-
+        
             echo "    <div class='container containertable'>
-    <table '>";
+            <table '>";
             echo "<tr><th class='headtableau' colspan='7'>Années : " . $year . " Mois : " . $month . "</th></tr>";
             echo "<tr><th>Lun</th><th>Mar</th><th>Mer</th><th>Jeu</th><th>Ven</th><th>Sam</th><th>Dim</th></tr>";
-
+        
             echo "<tr>";
             $day_count = 1;
             for ($i = 1; $i < $first_day; $i++) {
                 echo "<td></td>";
             }
             for ($i = $first_day; $i <= 7; $i++) {
-                echo "<td>$day_count</td>";
+                if (in_array($day_count, $jours)) {
+                    echo "<td style='color:red'>$day_count</td>";
+                } else {
+                    echo "<td>$day_count</td>";
+                }
                 $day_count++;
             }
             echo "</tr>";
-
+        
             for ($week = 2; $week <= 6; $week++) {
                 echo "<tr>";
                 for ($day = 1; $day <= 7; $day++) {
                     if ($day_count > $days_in_month) {
                         break;
                     }
-                    echo "<td>$day_count</td>";
+                    if (in_array($day_count, $jours)) {
+                        echo "<td style='color:red'>$day_count</td>";
+                    } else {
+                        echo "<td>$day_count</td>";
+                    }
                     $day_count++;
                 }
                 echo "</tr>";
@@ -153,11 +187,13 @@
             echo "</table></div>";
         }
         if (isset($_POST['year']) && isset($_POST['month'])) {
-            generate_calendar($_POST['year'], $_POST['month']);
+            generate_calendar($_POST['year'], $_POST['month'], $agenda);
         } else {
-            generate_calendar($current_year, $current_month);
+            generate_calendar($current_year, $current_month, $agenda);
         }
         // Exemple d'utilisation : affiche le calendrier pour mars 2023
+
+
         ?>
     </div>
 

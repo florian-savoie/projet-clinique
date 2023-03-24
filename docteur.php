@@ -8,7 +8,7 @@ if ($_SESSION['role'] == "medecins") {
 
     if (isset($_GET['planing']) && $_GET['planing'] === 'show') {
         $agenda = afficherrdv();
-
+var_dump($agenda);
     }
 
 

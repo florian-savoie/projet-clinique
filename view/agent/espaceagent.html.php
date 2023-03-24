@@ -62,6 +62,9 @@
             <li class="nav-item">
                 <a class="nav-link " href="?rendezvous=show">Les rendez-vous</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link " href="?searchclient=show">Rechercher un client</a>
+            </li>
         </ul>
 
 
@@ -74,7 +77,7 @@
                     <div class="col-md-6 offset-md-3">
                         <form method="POST" action="">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="search" id="search" required>
+                                <input type="text" value="modifier les information d'un patient :" class="form-control" name="search" id="search" required>
                                 <button type="submit" class="btn btn-primary" value="recherchepatient" name="recherchepatient">Rechercher</button>
                             </div>
                         </form>
@@ -344,6 +347,28 @@
         <?php
         }
         ?>
+
+<?php
+        if (isset($_GET['searchclient']) && $_GET['searchclient'] === 'show') {
+        ?>
+            <!-- Formulaire de synthese patient -->
+            <div class="container my-5">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <form method="POST" action="">
+        <div class="input-group">
+          <input type="text" class="form-control" name="nomPatient" id="nomPatient" placeholder="Nom du patient" required>
+          <input type="date" class="form-control" name="dateNaissance" id="dateNaissance" required>
+          <button type="submit" class="btn btn-primary" value="rechercherNSS" name="rechercherNSS">Rechercher NSS</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+        <?php
+      if(isset($patientnss)){ echo "le numero NSS du client est ".$patientnss[0]['nss'] ;}  }
+        ?>
+
     </div>
 
 </body>

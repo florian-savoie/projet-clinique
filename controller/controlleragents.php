@@ -59,3 +59,11 @@ $alertpaiement = "fond insufisant";
    }
    return $alertpaiement ;
    }
+
+   function shearchpatient(){
+    if (!empty($_POST["nomPatient"]) && !empty($_POST['dateNaissance'])){
+      $requete = 'SELECT nss FROM patients WHERE nom = :parametre1 AND date_naissance = :parametre2 ';
+      $resultat = bdd2Bindparam($requete,$_POST["nomPatient"],$_POST["dateNaissance"]);
+      $resultat = $resultat->fetchAll();
+      return $resultat ;
+   }}

@@ -44,13 +44,19 @@ if ($_SESSION['role'] == "agents") {
 
      if (isset($_POST['statuspayer'])){
         if (isset($_POST["searchpaiement"])){
-
-
             $alertpaiement= changementstatus();
             $paiments =  searchpaiment();
             $patientpaiments = $paiments['patient'];
             $historiquepaiments = $paiments['historique'];
             
+        } else {
+            $message = "le formulaire n'est pas complet";
+        }
+     }
+
+     if (isset($_POST['rechercherNSS'])){
+        if (isset($_POST["dateNaissance"]) && $_POST["nomPatient"]){
+            $patientnss= shearchpatient();
         } else {
             $message = "le formulaire n'est pas complet";
         }

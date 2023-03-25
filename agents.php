@@ -62,6 +62,23 @@ if ($_SESSION['role'] == "agents") {
         }
      }
 
+     // recharge le solde du patient 
+     if (isset($_POST['rechargesolde'])){
+        if (isset($_POST["nsspatient"]) && $_POST["nsspatient"]){
+            rechargesolde();
+        } else {
+            $message = "le formulaire n'est pas complet";
+        }
+     }
+
+          // recharge le solde du patient 
+          if (isset($_POST['soldepatient2date'])){
+            if (isset($_POST["soldedateFin"]) && $_POST["numeronss"] && $_POST["soldedateDebut"]){
+               $resultat = soldeentre2date();
+            } else {
+                $message = "le formulaire n'est pas complet";
+            }
+         }
 
 } else {
     // Rediriger l'utilisateur sur la page d'accueil

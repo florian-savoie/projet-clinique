@@ -67,3 +67,24 @@ $alertpaiement = "fond insufisant";
       $resultat = $resultat->fetchAll();
       return $resultat ;
    }}
+
+
+   function rechargesolde(){
+    if (!empty($_POST["nsspatient"]) && !empty($_POST['montantrecharge'])){
+      $requete = 'UPDATE patients SET solde= solde+:parametre1 WHERE nss = :parametre2';
+      bdd2Bindparam($requete,$_POST["montantrecharge"],$_POST["nsspatient"]);
+      $requete = 'INSERT INTO depots (nss, montant, type, date_heure) VALUES (:parametre1, :parametre2, :parametre3, :parametre4)';
+      bdd4Bindparam($requete, $_POST["nsspatient"], $_POST["montantrecharge"], 'depot', date('Y-m-d H:i:s'));
+   }}
+
+
+   function soldeentre2date(){
+    if (!empty($_POST["soldedateFin"]) && !empty($_POST['soldedateDebut']) && !empty($_POST['numeronss'])){
+     $datedebut = $_POST['soldedateDebut']." 00:00:00";
+     $datefin = $_POST['soldedateFin']." 00:00:00";
+     $requete = "SELECT * FROM depots WHERE nss= :parametre1 AND date_heure BETWEEN '{$datedebut}' AND '{$datefin}'";
+     $resultat = bdd1Bindparam($requete,$_POST["numeronss"]);
+     $resultat = $resultat->fetchAll();
+     return $resultat ;
+    }}
+

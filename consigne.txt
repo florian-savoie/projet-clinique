@@ -1,0 +1,42 @@
+
+
+– prendre un rdv pour un patient avec un médecin pour une consultation ou un acte.
+
+
+Pour la gestion des rdv de consultation ou d'acte, l'agent d'accueil demande au patient avec quel
+médecin il souhaite prendre rdv et pour quelle spécialité. Il vérifie alors que le nom du médecin
+correspond bien à la spécialité souhaitée par le patient puis affiche ensuite le planning du médecin
+sur une semaine « X ». Cet affichage montrera les plages libres et les plages occupées du médecin
+durant la semaine X. L'agent propose alors une date et une heure de libre (on fonctionne par tranche
+horaire d'une heure). Une fois que le patient a approuvé la date et l'heure du rdv, l'agent doit le
+sauvegarder dans son interface et préciser le motif (consultation/radio/...etc). Le site web affiche
+alors la liste des pièces à apporter et les consignes de base : pour une IRM, ne pas boire une heure
+avant,...etc. C'est le directeur de la clinique qui décide de la liste des pièces à fournir et des
+consignes suivant chaque motif. Il disposera pour cela d'une interface web qui lui permet de saisir
+ces informations ainsi que le prix pour chaque motif de rdv. La gestion des motifs de l'interface des
+agent d'accueil doit être sous forme d'une liste déroulante qui est chargée dynamiquement lors de la
+saisie d'un rdv. Si le patient n'est pas encore enregistré dans la base alors l'agent saisit toutes les
+informations personnelles du patient et l'ajoute à la base avant de lui affecter un rdv. Une fois le rdv
+affecté, le statut de ce rdv passe en attente de payement. L'agent dispose d'une interface qui permet
+de visualiser tous les actes/consultations qui sont en attente de payement en saisissant le NSS.
+Pages web des médecins
+Un médecin doit disposer d'une page pour visualiser le planning de la journée de n'importe quel
+médecin. Il peut également visualiser le planning sur une date X. D'autre part, un médecin Y doit
+pouvoir bloquer certains créneaux horaires afin d'accomplir des tâches administratives. Un agent
+d'accueil ne pourra donc pas donner de rdv à un patient avec le médecin Y dans ces créneaux
+horaires.
+Lorsque le médecin visualise son planning du jour, il doit pouvoir cliquer sur chaque rdv et
+visualiser la synthèse du patient ainsi que l'objet du rdv et la liste des pièces et consignes
+nécessaires pour ce rdv. Il effectue alors sa consultation ou son acte et produit un compte rendu et
+un suivi si le patient nécessite de passer par une prochaine étape. Dans le cas d'une consultation, le
+médecin peut aussi produire une prescription au patient. Toutes ces informations doivent être saisies
+à la fin du rdv et sauvegardé. Attention : le prix doit être calculé automatiquement à partir du motif
+du rdv et le médecin n'a pas à re-saisir le motif du rdv ou le prix du motif.
+Pages web du directeur
+Le directeur doit disposer de plusieurs interfaces pour :
+– créer et modifier les logins et mots de passe pour les trois interfaces : accueil, médecin et
+directeur. Pour faciliter le projet, on suppose que tous les médecins ont la même page web
+et que tous les agents d'accueil ont la même page web.
+
+
+– visualiser les statistiques de sa clinique  l'annuaire de tous les médecins avec leur spécialité.

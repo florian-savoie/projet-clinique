@@ -20,6 +20,7 @@ function bdd1Bindparam($requete,$parametre1){
         $requete->bindParam(':parametre1', $parametre1);
         $requete->execute();
         return $requete;
+
     } catch(Exception $e) {
         die('Une erreur a été trouvée : ' . $e->getMessage());
     }  
@@ -155,11 +156,19 @@ function updatesolde()
             $updatestatus->execute();
             $newssolde = $_POST['soldeclient']  - $_POST['prixpaiement'] ;
             $id = $_POST['id_patient'];
-
+            
             $updatesolde = $bdd->prepare('UPDATE patients SET solde=:newssolde WHERE id_patient=:id');
             $updatesolde->bindParam(":newssolde", $newssolde);
             $updatesolde->bindParam(":id", $id);
             $updatesolde->execute();
+            $id = "26";
+            $requete = 'SELECT nss FROM patients WHERE id_patient=:parametre1';
+            $resultat = bdd1Bindparam($requete,$id);
+            $afficher = $resultat->fetch();
+            $nss = $afficher["nss"];
+         
+            $requete  = 'INSERT INTO depots (nss, montant, type, date_heure) VALUES (:parametre1, :parametre2, :parametre3, :parametre4)';
+            bdd4Bindparam($requete, $nss, $_POST["prixpaiement"], 'paiement', date('Y-m-d H:i:s'));
         } catch (Exception $e) {
             die('Une erreur a été trouvée :'. $id . $e->getMessage());
         }

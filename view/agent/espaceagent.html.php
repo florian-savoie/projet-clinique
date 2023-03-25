@@ -63,7 +63,13 @@
                 <a class="nav-link " href="?rendezvous=show">Les rendez-vous</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="?searchclient=show">Rechercher un client</a>
+                <a class="nav-link " href="?searchclient=show">Rechercher un patient</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="?rechargesolde=show">recharger solde patient</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="?soldepatient2date=show">solde d'un patient entre 2 dates </a>
             </li>
         </ul>
 
@@ -347,29 +353,105 @@
         <?php
         }
         ?>
+        <!-- rechercher  nss grace au nom client et date de naissance  -->
 
-<?php
+        <?php
         if (isset($_GET['searchclient']) && $_GET['searchclient'] === 'show') {
         ?>
-            <!-- Formulaire de synthese patient -->
+            <!-- Formulaire de -->
             <div class="container my-5">
-  <div class="row">
-    <div class="col-md-6 offset-md-3">
-      <form method="POST" action="">
-        <div class="input-group">
-          <input type="text" class="form-control" name="nomPatient" id="nomPatient" placeholder="Nom du patient" required>
-          <input type="date" class="form-control" name="dateNaissance" id="dateNaissance" required>
-          <button type="submit" class="btn btn-primary" value="rechercherNSS" name="rechercherNSS">Rechercher NSS</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <form method="POST" action="">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="nomPatient" id="nomPatient" placeholder="Nom du patient" required>
+                                <input type="date" class="form-control" name="dateNaissance" id="dateNaissance" required>
+                                <button type="submit" class="btn btn-primary" value="rechercherNSS" name="rechercherNSS">Rechercher NSS</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         <?php
-      if(isset($patientnss)){ echo "le numero NSS du client est ".$patientnss[0]['nss'] ;}  }
+            if (isset($patientnss)) {
+                echo "le numero NSS du client est " . $patientnss[0]['nss'];
+            }
+        }
         ?>
 
+        <!-- recharger solde du client grace au nss -->
+        <?php
+        if (isset($_GET['rechargesolde']) && $_GET['rechargesolde'] === 'show') {
+        ?>
+            <!-- Formulaire de  -->
+            <div class="container my-5">
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <form method="POST" action="">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="nsspatient" id="nsspatient" placeholder="NSS du patient" required>
+                                <input type="number" class="form-control" name="montantrecharge" id="montantrecharge" required>
+                                <button type="submit" class="btn btn-primary" value="rechargesolde" name="rechargesolde">Recharger solde </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+
+        <!-- solde d'un patient entre deux avec historique  -->
+        <?php
+        if (isset($_GET['soldepatient2date']) && $_GET['soldepatient2date'] === 'show') {
+        ?>
+            <!-- Formulaire de  -->
+            <div class="container">
+  <h2>Sélection de dates</h2>
+  <form method="POST" action="">
+    <div class="form-group">
+    <label for="numeronss">Numero nss :</label>
+      <input type="text" class="form-control" id="numeronss" name="numeronss">
+      <label for="dateDebut">Date de début :</label>
+      <input type="date" class="form-control" id="soldedateDebut" name="soldedateDebut">
+
+      <label for="dateFin">Date de fin :</label>
+      <input type="date" class="form-control" id="soldedateFin" name="soldedateFin">
     </div>
+    <button type="submit" class="btn btn-primary" name="soldepatient2date">Rechercher</button>
+  </form>
+</div>
+
+<?php if (isset($resultat)) { ?>
+
+    <div class="container mt-3">
+  <h2>liste de l'historique</h2> 
+  <p>du <?= $_POST["soldedateDebut"] ?> au <?= $_POST["soldedateFin"] ?></p> 
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>date </th>
+        <th>montant</th>
+        <th>type</th>
+      </tr>
+    </thead>
+    <tbody>
+<?php foreach ($resultat as $result){ ?> 
+      <tr>
+        <td><?= $result["date_heure"] ?></td>
+        <td><?= $result["montant"] ?></td>
+        <td><?= $result["type"] ?></td>
+
+      </tr>
+      <?php } ?> 
+    </tbody>
+  </table>
+</div>
+
+<?php }} ?>
+
+
+
+
+</div>
 
 </body>
 

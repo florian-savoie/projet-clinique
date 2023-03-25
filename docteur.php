@@ -8,7 +8,15 @@ if ($_SESSION['role'] == "medecins") {
 
     if (isset($_GET['planing']) && $_GET['planing'] === 'show') {
         $agenda = afficherrdv();
-var_dump($agenda);
+    }
+
+
+
+    if (isset($_GET['planingothers']) && $_GET['planingothers'] === 'show') {
+        $afficherMedecins = afficherMedecins();
+if (isset($_POST['idmedecin'])){
+    $planning = afficherPlanningDuMedecin();
+var_dump($planning);}
     }
 
 

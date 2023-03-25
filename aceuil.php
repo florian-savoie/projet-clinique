@@ -13,6 +13,8 @@ if (isset($_POST["connexion"]) && isset($_POST["identifiant"]) && isset($_POST["
 
    $message = demandeConnexion($identifiant, $password,$role);
 }
-
+if (isset($_SESSION['connecter']) && $_SESSION['connecter'] == true){
+        header('location:moncompte.php');
+}
 
 require('view/acceuil.html.php');

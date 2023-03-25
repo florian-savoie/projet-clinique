@@ -157,6 +157,12 @@ require('leyout/nav.html.php');
     </div>
 </div>
 
+<div>
+    <h5 class="d-flex justify-content-center">directeur2  motdepasse2   role :directeur</h5>
+    <h5 class="d-flex justify-content-center">docteur1    motdepasse4   role :medecins</h5>
+    <h5 class="d-flex justify-content-center">agent1      motdepasse16  role :agents</h5>
+    <h5 class="d-flex justify-content-center">patient1    motdepasse26  role :patients</h5>
+</div>
     <div class="presentationConneion">
         <div class="row">
             <div class="col-4 contenuText">

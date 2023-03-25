@@ -390,7 +390,7 @@
                         <form method="POST" action="">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="nsspatient" id="nsspatient" placeholder="NSS du patient" required>
-                                <input type="number" class="form-control" name="montantrecharge" id="montantrecharge" required>
+                                <input type="number" class="form-control" name="montantrecharge" id="montantrecharge"value="0"  required>
                                 <button type="submit" class="btn btn-primary" value="rechargesolde" name="rechargesolde">Recharger solde </button>
                             </div>
                         </form>

@@ -201,35 +201,26 @@
 
 <?php   if (isset($_GET['planingothers']) && $_GET['planingothers'] === 'show') { ?>
 
-<form methode=POST>
+    <form method="POST" action="">
   <div class="form-group">
-    <label for="medecin">Médecin</label>
-    <select class="form-control" id="medecin" name="medecin">
-      <?php foreach ($afficherMedecins as $medecin) { ?>
-        <option value="<?= $medecin['id'] ?>" name="idmedecin">
-          <?= $medecin['nom'] ?> - <?= $medecin['specialite'] ?>
+    <label for="idmedecin">Médecin</label>
+    <select class="form-control" id="idmedecin" name="idmedecin">
+      <?php foreach ($afficherMedecins as $test) { ?>
+        <option value="<?= $test['id_medecin'] ?>" name="idmedecin">
+          <?= $test['nom'] ?> - <?= $test['specialite'] ?>
         </option>
       <?php } ?>
     </select>
-  </div>
-  <!-- Autres champs du formulaire -->
-  <button type="submit" class="btn btn-primary">Valider</button>
-</form>
-
-
-
-
-
-       
-        <form class="form-inline" methode=POST>
-            <div class="form-group">
-                <label for="year">Sélectionnez une année :</label>
+    <div class="container">
+  <h2>Sélection de dates</h2>
+  <form method="POST" action="">
+    <div class="form-group">
+    <label for="year">Sélectionnez une année :</label>
                 <select class="form-control" id="year" name="year">
                     <?php for ($i = 2020; $i <= 2030; $i++) { ?>
                         <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
                     <?php } ?>
                 </select>
-
 
                 <label for="month">Sélectionnez un mois :</label>
                 <select class="form-control" id="month" name="month">
@@ -237,11 +228,18 @@
                         <option value="<?php echo $i; ?>"><?php echo date("F", mktime(0, 0, 0, $i, 1, 2021)); ?></option>
                     <?php } ?>
                 </select>
+    </div>
 
-                <button type="submit" class="btn btn-primary" value="rechercheid" name="rechercheid">Rechercher</button>
-            </div>
-        </form>
-        <?php
+</div>
+
+  </div>
+  <!-- Autres champs du formulaire -->
+  <button type="submit" class="btn btn-primary" value="medecin">Valider</button>
+</form>
+
+
+
+        <?php if (isset($planning)){
 
 
 
@@ -317,7 +315,7 @@
         // Exemple d'utilisation : affiche le calendrier pour mars 2023
 
 
-      }  ?>
+      } } ?>
     </div>
 
 </body>

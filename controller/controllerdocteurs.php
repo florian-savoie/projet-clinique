@@ -22,10 +22,9 @@ function afficherPlanningDuMedecin(){
         $requete = "SELECT rdv.date_heure, patients.nom, patients.prenom
         FROM rdv
         JOIN patients ON rdv.patient_id = patients.id_patient
-        WHERE rdv.medecin_id = :id"  ;
+        WHERE rdv.medecin_id = :parametre1"  ;
         $planning = bdd1Bindparam($requete,$_POST['idmedecin']);
         $planning = $planning->fetchAll();  
-var_dump($planning);
         return $planning ;
     }
 }

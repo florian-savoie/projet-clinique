@@ -41,6 +41,9 @@
                     <a class="nav-link" href="#">medecins</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="moncompte.php">mon compte</a>
+                </li>
+                <li class="nav-item">
                 <a class="nav-link" href="deconnexion.php">Déconnexion</a>
                 </li>
             </ul>
@@ -66,6 +69,9 @@
                     <a class="nav-link" href="#">client</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="moncompte.php">mon compte</a>
+                </li>
+                <li class="nav-item">
                 <a class="nav-link" href="deconnexion.php">Déconnexion</a>
                 </li>
             </ul>
@@ -89,6 +95,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">agents</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="moncompte.php">mon compte</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" href="deconnexion.php">Déconnexion</a>

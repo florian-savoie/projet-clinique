@@ -88,3 +88,26 @@ $alertpaiement = "fond insufisant";
      return $resultat ;
     }}
 
+   function affichermedecinetspecialite(){
+      $requete = "SELECT DISTINCT specialite FROM medecins";
+      $resultat = bdd0Bindparam($requete);
+      return $resultat;
+    }
+
+    function shearchrdvdispo(){
+    if (!empty($_POST["sheachmedecin"]) && !empty($_POST['categoryrdv']) && !empty($_POST['semainechoisie'])){
+      $annee = 2023;
+      $semaine = $_POST['semainechoisie'];
+      // Récupération de la date correspondant au premier jour de la semaine
+      $date = strtotime($annee . "W" . str_pad($semaine, 2, "0", STR_PAD_LEFT));
+      // Récupération de la date correspondant au dernier jour de la semaine
+      $dernier_jour = strtotime("+6 days", $date);
+      $datedebut = date("Y/m/d", $date)." 00:00:00";
+      $datefin = date("Y/m/d", $dernier_jour)." 00:00:00";
+
+      $requete = "SELECT m.nom , r.date_heure FROM rdv r , medecins m WHERE r.medecin_id = m.id_medecin and m.specialite = :parametre2 and m.nom= :parametre1 AND r.date_heure BETWEEN '{$datedebut}' AND '{$datefin}'";
+      $resultat = bdd2Bindparam($requete,$_POST["sheachmedecin"],$_POST['categoryrdv']);
+      $resultat = $resultat->fetchAll();
+      return array('resultat' => $resultat, 'date' => $datedebut);
+    }
+  }

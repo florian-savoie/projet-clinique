@@ -71,6 +71,7 @@
             <li class="nav-item">
                 <a class="nav-link " href="?soldepatient2date=show">solde d'un patient entre 2 dates </a>
             </li>
+
         </ul>
 
 
@@ -333,24 +334,133 @@
                     <div class="col-md-6 offset-md-3">
                         <form method="POST" action="">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="searchpaiement" id="searchpaiement" value="Nom du patient" required>
-                                <select class="form-control" name="situationFamiliale" id="situationFamiliale">
+                                <input type="text" class="form-control" name="sheachmedecin" id="sheachmedecin" value="Nom du medecin" required>
+                                <select class="form-control" name="categoryrdv" id="categoryrdv">
+
                                     <option value="" disabled selected>Type de rendez-vous</option>
-                                    <option value="celibataire">Radiographie</option>
-                                    <option value="marié">Scanner</option>
-                                    <option value="divorce">IRM</option>
-                                    <option value="veuf">Chirurgie</option>
+                                  <?php  foreach ($medecin as $cat) {?>  <option value="<?= $cat["specialite"]?>"><?= $cat["specialite"]?></option>
+<?php } ?>
                                 </select>
-                                <button type="submit" class="btn btn-primary" value="recherchepatientPayemment" name="recherchepatientPayemment">Regarder les disponibilités</button>
                             </div>
+                            <select class="form-control" name="semainechoisie" id="semainechoisie">
+
+<option value="" disabled selected>choix de la semaine </option>
+<?php  for ($i=1 ; $i < 52 ;$i++) {?>  <option value="<?= $i?>">semaine <?= $i?></option>
+<?php } ?>
+</select>
+                            <button type="submit" class="btn btn-primary" value="shearchplanningmedecin" name="shearchplanningmedecin">Regarder les disponibilités</button>
+
                         </form>
                     </div>
                 </div>
             </div>
 
 
+   <?php
 
-        <?php
+
+   if ( isset($tableaurdv))  {
+
+        $datedebut = $tableaurdv['date'] ;
+
+        $timestamp = strtotime($datedebut);
+        $timestampjour = 86400;
+        $timestampdemisjournée = 43200;
+        $timestampsemaine = $timestampjour * 7;
+        $timestamprdv = [];
+
+
+       foreach ($tableaurdv['resultat'] as $rdv ){
+        $rdv_timestamp = strtotime($rdv['date_heure']);
+        array_push($timestamprdv, $rdv_timestamp);
+        }
+        
+        $timestampdelasemaine = [];
+        for ($e = $timestamp ; $e < $timestamp+$timestampsemaine ; $e += $timestampdemisjournée) {
+          array_push($timestampdelasemaine, $e);
+        }
+
+foreach ($timestamprdv as $verifrdv){
+            $index = 0 ;
+foreach ($timestampdelasemaine as $agendasemaine){
+    if ($verifrdv > $agendasemaine && $verifrdv < $agendasemaine+$timestampdemisjournée){
+        $timestampdelasemaine[$index] = 'rdv';
+        $index++;
+    }else{
+        $index++;
+
+    }
+}
+}
+
+$tableaujour = [
+    "lundi",
+    "mardi",
+    "mercredi",
+    "jeudi",
+    "vendredi",
+    "samedi",
+    "dimanche"
+];
+
+
+    ?>
+
+<div class="container mt-3">
+  <h2></h2>
+  <p>voici les dates disponible pour la semaine <?= $_POST['semainechoisie'] ?></p>            
+  <table class="table table-hover">
+    <thead>
+      <tr>
+       <?php for ($i = 0 ; $i < 7 ; $i++) {
+  $timestamp = strtotime($datedebut . " +".$i." day");
+  $date = date("Y/m/d", $timestamp);
+  $jour = date("l", $timestamp);
+  echo "<th>".$date."<br>".$tableaujour[$i]."</th>";
+}?> 
+
+      </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <?php for($m = 0 ; $m < 14 ; $m+=2) { 
+        if ($timestampdelasemaine[$m] == "rdv"){ ?>
+            <td><button type="button" class="btn btn-danger">indisponible</button></td>
+       <?php  }else { ?>
+            <td>
+                <form action="agents.php?" method="get">
+                <input type="hidden" name="priserdv" value="show">
+                    <input type="hidden" name="timestamp" value="<?= $timestampdelasemaine[$m] ?>">
+                    <input type="hidden" name="docteurname" value="<?= $docteurname ?>">
+                    <input type="hidden" name="category" value="<?= $categorydocteur ?>">
+                    <button type="submit" class="btn btn-success">disponible</button>
+                </form>
+            </td>
+       <?php  }
+    } ?>
+    </tr>
+    <tr>
+    <?php for($a = 1 ; $a < 15 ; $a+=2) { 
+        if ($timestampdelasemaine[$a] == "rdv"){ ?>
+            <td><button type="button" class="btn btn-danger">indisponible</button></td>
+       <?php  }else { ?>
+            <td>
+                <form action="agents.php?" method="get">
+                    <input type="hidden" name="priserdv" value="show">
+                    <input type="hidden" name="timestamp" value="<?= $timestampdelasemaine[$a] ?>">
+                    <input type="hidden" name="docteurname" value="<?= $docteurname ?>">
+                    <input type="hidden" name="category" value="<?= $categorydocteur ?>">
+                    <button type="submit" class="btn btn-success">disponible</button>
+                </form>
+            </td>
+       <?php  }
+    } ?>
+    </tr>
+</tbody>
+  </table>
+</div>
+       
+ <?php   }
         }
         ?>
         <!-- rechercher  nss grace au nom client et date de naissance  -->
@@ -390,7 +500,7 @@
                         <form method="POST" action="">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="nsspatient" id="nsspatient" placeholder="NSS du patient" required>
-                                <input type="number" class="form-control" name="montantrecharge" id="montantrecharge"value="0"  required>
+                                <input type="number" class="form-control" name="montantrecharge" id="montantrecharge" value="0" required>
                                 <button type="submit" class="btn btn-primary" value="rechargesolde" name="rechargesolde">Recharger solde </button>
                             </div>
                         </form>
@@ -405,53 +515,54 @@
         ?>
             <!-- Formulaire de  -->
             <div class="container">
-  <h2>Sélection de dates</h2>
-  <form method="POST" action="">
-    <div class="form-group">
-    <label for="numeronss">Numero nss :</label>
-      <input type="text" class="form-control" id="numeronss" name="numeronss">
-      <label for="dateDebut">Date de début :</label>
-      <input type="date" class="form-control" id="soldedateDebut" name="soldedateDebut">
+                <h2>Sélection de dates</h2>
+                <form method="POST" action="">
+                    <div class="form-group">
+                        <label for="numeronss">Numero nss :</label>
+                        <input type="text" class="form-control" id="numeronss" name="numeronss">
+                        <label for="dateDebut">Date de début :</label>
+                        <input type="date" class="form-control" id="soldedateDebut" name="soldedateDebut">
 
-      <label for="dateFin">Date de fin :</label>
-      <input type="date" class="form-control" id="soldedateFin" name="soldedateFin">
+                        <label for="dateFin">Date de fin :</label>
+                        <input type="date" class="form-control" id="soldedateFin" name="soldedateFin">
+                    </div>
+                    <button type="submit" class="btn btn-primary" name="soldepatient2date">Rechercher</button>
+                </form>
+            </div>
+
+            <?php if (isset($resultat)) { ?>
+
+                <div class="container mt-3">
+                    <h2>liste de l'historique</h2>
+                    <p>du <?= $_POST["soldedateDebut"] ?> au <?= $_POST["soldedateFin"] ?></p>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>date </th>
+                                <th>montant</th>
+                                <th>type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($resultat as $result) { ?>
+                                <tr>
+                                    <td><?= $result["date_heure"] ?></td>
+                                    <td><?= $result["montant"] ?></td>
+                                    <td><?= $result["type"] ?></td>
+
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+
+        <?php }
+        } ?>
+
+
+
+
     </div>
-    <button type="submit" class="btn btn-primary" name="soldepatient2date">Rechercher</button>
-  </form>
-</div>
-
-<?php if (isset($resultat)) { ?>
-
-    <div class="container mt-3">
-  <h2>liste de l'historique</h2> 
-  <p>du <?= $_POST["soldedateDebut"] ?> au <?= $_POST["soldedateFin"] ?></p> 
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>date </th>
-        <th>montant</th>
-        <th>type</th>
-      </tr>
-    </thead>
-    <tbody>
-<?php foreach ($resultat as $result){ ?> 
-      <tr>
-        <td><?= $result["date_heure"] ?></td>
-        <td><?= $result["montant"] ?></td>
-        <td><?= $result["type"] ?></td>
-
-      </tr>
-      <?php } ?> 
-    </tbody>
-  </table>
-</div>
-
-<?php }} ?>
-
-
-
-
-</div>
 
 </body>
 

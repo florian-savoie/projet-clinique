@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-   </body>
+    </body>
 
     <style>
         header {
@@ -101,91 +101,102 @@
             font-family: "source_sans_proregular";
             font-size: 16px;
         }
-        .cardTeam{
+
+        .cardTeam {
             display: flex;
             justify-content: center;
         }
-        .contenuText{
+
+        .contenuText {
             background-color: rgba(243, 237, 237, 0.7);
-padding: 3rem;
+            padding: 3rem;
         }
     </style>
 </head>
 <header class="">
-<?php
-require('leyout/nav.html.php');
-?>
+    <?php
+    require('leyout/nav.html.php');
+    ?>
 </header>
+
 <body>
 
-<div class="equipe">
-    <div class="row my-5">
-        <h1 class="text-center my-2">Nos Equipes</h1>
-        <div class="col-3 cardTeam"><div class="card" style="width:400px;">
-  <img class="card-img-top" src="assets/img/directeur.jpg" alt="Card image"style="height: 15rem;">
-  <div class="card-body">
-    <h4 class="card-title">Nos directeur</h4>
-    <p>Nous comptont</p>
-<p><?= $nbr[1];?> directeur</p>
+    <div class="equipe">
+        <div class="row my-5">
+            <h1 class="text-center my-2">Nos Equipes</h1>
+            <div class="col-3 cardTeam">
+                <div class="card" style="width:400px;">
+                    <img class="card-img-top" src="assets/img/directeur.jpg" alt="Card image" style="height: 15rem;">
+                    <div class="card-body">
+                        <h4 class="card-title">Nos directeur</h4>
+                        <p>Nous comptont</p>
+                        <p><?= $nbr[1]; ?> directeur</p>
 
-  </div>
-</div></div>
-        <div class="col-3 cardTeam"><div class="card" style="width:400px;">
-  <img class="card-img-top" src="assets/img/patient.jpg" alt="Card image"style="height: 15rem;">
-  <div class="card-body">
-    <h4 class="card-title">Nos patient</h4>
-    <p class="card-text">Nous comptont</p>
-    <p><?= $nbr[3];?> patient</p>
-  </div>
-</div></div>
-        <div class="col-3 cardTeam"><div class="card" style="width:400px;">
-  <img class="card-img-top" src="assets/img/entretien.jpg" alt="Card image"style="height: 15rem;">
-  <div class="card-body">
-    <h4 class="card-title">Nos agent d'entretien</h4>
-    <p class="card-text">Nous comptont</p>
-    <p><?= $nbr[2];?> agent d'entretien</p>
-  </div>
-</div></div>
-<div class="col-3 cardTeam"><div class="card" style="width:400px;">
-    <img class="card-img-top" src="assets/img/medecin.jpg" alt="Card image"style="height: 15rem;">
-    <div class="card-body">
-      <h4 class="card-title">Nos medecins</h4>
-      <p class="card-text">Nous comptont</p>
-      <p><?= $nbr[0];?> medecins</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3 cardTeam">
+                <div class="card" style="width:400px;">
+                    <img class="card-img-top" src="assets/img/patient.jpg" alt="Card image" style="height: 15rem;">
+                    <div class="card-body">
+                        <h4 class="card-title">Nos patient</h4>
+                        <p class="card-text">Nous comptont</p>
+                        <p><?= $nbr[3]; ?> patient</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3 cardTeam">
+                <div class="card" style="width:400px;">
+                    <img class="card-img-top" src="assets/img/entretien.jpg" alt="Card image" style="height: 15rem;">
+                    <div class="card-body">
+                        <h4 class="card-title">Nos agent d'entretien</h4>
+                        <p class="card-text">Nous comptont</p>
+                        <p><?= $nbr[2]; ?> agent d'entretien</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3 cardTeam">
+                <div class="card" style="width:400px;">
+                    <img class="card-img-top" src="assets/img/medecin.jpg" alt="Card image" style="height: 15rem;">
+                    <div class="card-body">
+                        <h4 class="card-title">Nos medecins</h4>
+                        <p class="card-text">Nous comptont</p>
+                        <p><?= $nbr[0]; ?> medecins</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div></div>
-    </div>
-</div>
 
-<div>
-    <h5 class="d-flex justify-content-center">directeur2  motdepasse2   role :directeur</h5>
-    <h5 class="d-flex justify-content-center">docteur1    motdepasse4   role :medecins</h5>
-    <h5 class="d-flex justify-content-center">agent1      motdepasse16  role :agents</h5>
-    <h5 class="d-flex justify-content-center">patient1    motdepasse26  role :patients</h5>
-</div>
+    <div>
+        <h5 class="d-flex justify-content-center"><strong>directeur2</strong>&ensp; <strong>motdepasse2</strong>&ensp;   role :directeur</h5>
+        <h5 class="d-flex justify-content-center"><strong>docteur1</strong>&ensp;  <strong>motdepasse4</strong>&ensp;   role :medecins</h5>
+        <h5 class="d-flex justify-content-center"><strong>agent1</strong>&ensp;  <strong>motdepasse16</strong>&ensp;   role :agents</h5>
+        <h5 class="d-flex justify-content-center"><strong>patient1</strong>&ensp;  <strong>motdepasse26</strong>&ensp;   role :patients</h5>
+    </div>
     <div class="presentationConneion">
         <div class="row">
             <div class="col-4 contenuText">
                 <h2>Anesthésie et réanimation</h2>
 
                 <p>Le service d'anesthésie et réanimation propose à ses patients une offre personnalisée de soins humains, de qualité et innovants. Découvrez ci-dessous les informations essentielles sur le traitement, la consultation ou la prise de rendez-vous avec un anesthésiste-réanimateur de la Clinique Rhône Durance.</p>
-                
+
                 <h3>Anesthésie et réanimation : qu’est-ce que c’est ?</h3>
-                
+
                 <p>L’anesthésie-réanimation désigne une spécialité exercée au bloc opératoire (anesthésie) et/ou dans un service spécialisé (réanimation).</p>
-                
+
                 <p>Un service de réanimation accueille les patients hospitalisés présentant une défaillance d’au moins 2 fonctions vitales :</p>
-                
+
                 <ul>
-                  <li>L’appareil respiratoire (les poumons),</li>
-                  <li>L’appareil circulatoire (cœur et vaisseaux),</li>
-                  <li>La fonction rénale,</li>
-                  <li>Le système nerveux…</li>
+                    <li>L’appareil respiratoire (les poumons),</li>
+                    <li>L’appareil circulatoire (cœur et vaisseaux),</li>
+                    <li>La fonction rénale,</li>
+                    <li>Le système nerveux…</li>
                 </ul>
-                
+
             </div>
 
-                
+
             <div class="col-4 ">
                 <img class="imgconnexion" src="assets/img/connexion.jpg" alt="">
 
@@ -201,15 +212,15 @@ require('leyout/nav.html.php');
                             <label for="password">Mots de passe</label>
                             <input type="text" name="password" value="motdepasse1" required>
                         </p>
-<p>
-<label for="role">Vous etes</label>
-<select id="role" name="role">
-  <option value="medecins">Médecin</option>
-  <option value="patients">Client</option>
-  <option value="agents">Agent</option>
-  <option value="directeur">Directeur</option>
-</select>
-</p>
+                        <p>
+                            <label for="role">Vous etes</label>
+                            <select id="role" name="role">
+                                <option value="medecins">Médecin</option>
+                                <option value="patients">Client</option>
+                                <option value="agents">Agent</option>
+                                <option value="directeur">Directeur</option>
+                            </select>
+                        </p>
                         <button type="reset" class="btn btn-secondary bouton">REINITIALISER</button>
                         <button type="submit" class="btn btn-secondary bouton" name="connexion">Connexion</button>
 
@@ -223,19 +234,20 @@ require('leyout/nav.html.php');
                 <h2>Quand consulter un dermatologue ?</h2>
 
                 <p>Dès que la peau prend un aspect inhabituel – apparition d’une protubérance, de rougeurs ou de démangeaisons, augmentation de la taille d’un grain de beauté, perte de cheveux… – il est conseillé de consulter son médecin traitant qui, s’il le juge utile, vous réorientera vers un médecin dermatologue.</p>
-                
+
                 <p>En cas d’antécédents de maladies de peau, personnels ou familiaux, ou d’exposition à des facteurs de risque (exposition importante au soleil, à des produits chimiques, à un milieu humide…), il peut être utile d’être suivi régulièrement par un dermatologue. Acné, eczéma, psoriasis, verrue, herpès, zona, kyste cutané, hyperpigmentation, mélanome… : les pathologies de la peau, des plus bénignes aux plus graves, sont prises en charge dans les services de dermatologie des cliniques Elsan.</p>
-                
+
                 <h3>Que fait le dermatologue ?</h3>
-                
+
                 <p>Le dermatologue interroge le patient sur la nature du problème, sur ses antécédents médicaux et familiaux et son hygiène de vie. Il procède à l’auscultation de la zone touchée par le problème (lésion, grain de beauté…) mais aussi d’autres zones où il peut être présent sans être encore visible. Il peut réaliser une dermoscopie, examen indolore, pour visualiser la peau en profondeur, ou une biopsie cutanée pour préciser la nature du problème.</p>
-                
+
             </div>
         </div>
 
     </div>
 
 
-    <?php if(isset($message)&&!empty($message)) echo $message."gfdgfdhgfgfjhgkjhgsdgfhgfh"; ?>
-    <?php if(isset($_SESSION['connecter'])) echo "bienvenu" ?>
+    <?php if (isset($message) && !empty($message)) echo $message . "gfdgfdhgfgfjhgkjhgsdgfhgfh"; ?>
+    <?php if (isset($_SESSION['connecter'])) echo "bienvenu" ?>
+
 </html>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 22 mars 2023 à 14:17
+-- Généré le : sam. 25 mars 2023 à 16:56
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.0.26
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `actes_medicaux` (
   `nom` varchar(50) NOT NULL,
   `prix` decimal(10,2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `actes_medicaux`
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `actes_medicaux` (
 INSERT INTO `actes_medicaux` (`id`, `nom`, `prix`) VALUES
 (1, 'Consultation', '50.00'),
 (2, 'Radiographie', '100.00'),
-(3, 'Scanner', '200.00'),
+(3, 'scanner ', '200.00'),
 (4, 'IRM', '300.00'),
 (5, 'Chirurgie', '500.00');
 
@@ -60,14 +60,14 @@ CREATE TABLE IF NOT EXISTS `agents` (
   `prenom` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_agent` (`id_agent`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `agents`
 --
 
 INSERT INTO `agents` (`id`, `id_agent`, `nom`, `prenom`) VALUES
-(1, 17, 'Agent1Nom', 'Agent1Prenom'),
+(1, 16, 'Agent1Nom', 'Agent1Prenom'),
 (2, 18, 'Agent2Nom', 'Agent2Prenom'),
 (3, 19, 'Agent3Nom', 'Agent3Prenom'),
 (4, 20, 'Agent4Nom', 'Agent4Prenom'),
@@ -91,16 +91,17 @@ CREATE TABLE IF NOT EXISTS `consignes` (
   `consigne` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `acte_id` (`acte_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `consignes`
 --
 
 INSERT INTO `consignes` (`id`, `acte_id`, `consigne`) VALUES
-(1, 1, 'Prévoir une attente de 15 minutes'),
-(2, 2, 'Venir à jeun'),
-(3, 3, 'Ne pas avoir de bijoux ou d\'objets métalliques sur soi');
+(1, 4, 'test'),
+(6, 2, 'florian test'),
+(4, 3, 'test'),
+(5, 2, 'florian test');
 
 -- --------------------------------------------------------
 
@@ -116,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `creneaux_bloques` (
   `date_heure_fin` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `medecin_id` (`medecin_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `creneaux_bloques`
@@ -148,12 +149,22 @@ INSERT INTO `creneaux_bloques` (`id`, `medecin_id`, `date_heure_debut`, `date_he
 DROP TABLE IF EXISTS `depots`;
 CREATE TABLE IF NOT EXISTS `depots` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `patient_id` int NOT NULL,
+  `nss` int NOT NULL,
   `date_heure` datetime NOT NULL,
   `montant` decimal(10,2) NOT NULL,
+  `type` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `patient_id` (`patient_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `patient_id` (`nss`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `depots`
+--
+
+INSERT INTO `depots` (`id`, `nss`, `date_heure`, `montant`, `type`) VALUES
+(1, 2147483647, '0000-00-00 00:00:00', '150.00', 'depot'),
+(2, 2147483647, '2023-03-25 13:20:06', '150.00', 'depot'),
+(3, 2147483647, '2023-03-25 13:49:23', '150.00', 'paiement');
 
 -- --------------------------------------------------------
 
@@ -169,7 +180,7 @@ CREATE TABLE IF NOT EXISTS `directeur` (
   `prenom` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_directeur` (`id_directeur`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `directeur`
@@ -191,50 +202,52 @@ CREATE TABLE IF NOT EXISTS `employes` (
   `id` int NOT NULL AUTO_INCREMENT,
   `username` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
-  `role` enum('agents','medecins','directeur','patients') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `role` enum('directeur','medecins','agents','patients') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `employes`
 --
 
 INSERT INTO `employes` (`id`, `username`, `password`, `role`) VALUES
-(1, 'florian', 'test', 'directeur'),
+(1, 'gfgfd', 'gdfgd', 'directeur'),
 (2, 'directeur2', 'motdepasse2', 'directeur'),
 (3, 'directeur3', 'motdepasse3', 'directeur'),
-(4, 'docteur1', 'motdepasse4', ''),
-(5, 'docteur2', 'motdepasse5', ''),
-(6, 'docteur3', 'motdepasse6', ''),
+(4, 'docteur1', 'motdepasse4', 'medecins'),
+(5, 'docteur2', 'motdepasse5', 'medecins'),
+(6, 'docteur3', 'motdepasse6', 'medecins'),
 (7, 'docteur4', 'motdepasse7', 'medecins'),
-(8, 'docteur5', 'motdepasse8', ''),
-(9, 'docteur6', 'motdepasse9', ''),
-(10, 'docteur7', 'motdepasse10', ''),
-(11, 'docteur8', 'motdepasse11', ''),
-(12, 'docteur9', 'motdepasse12', ''),
-(13, 'docteur10', 'motdepasse13', ''),
-(14, 'docteur11', 'motdepasse14', ''),
-(15, 'docteur12', 'motdepasse15', ''),
-(16, 'agent1', 'motdepasse16', ''),
-(17, 'agent2', 'motdepasse17', ''),
+(8, 'docteur5', 'motdepasse8', 'medecins'),
+(9, 'docteur6', 'motdepasse9', 'medecins'),
+(10, 'docteur7', 'motdepasse10', 'medecins'),
+(11, 'docteur8', 'motdepasse11', 'medecins'),
+(12, 'docteur9', 'motdepasse12', 'medecins'),
+(13, 'docteur10', 'motdepasse13', 'medecins'),
+(14, 'docteur11', 'motdepasse14', 'medecins'),
+(15, 'docteur12', 'motdepasse15', 'medecins'),
+(16, 'agent1', 'motdepasse16', 'agents'),
+(17, 'agent2', 'motdepasse17', 'agents'),
 (18, 'agent3', 'motdepasse18', 'agents'),
 (19, 'agent4', 'motdepasse19', 'agents'),
-(20, 'agent5', 'motdepasse20', ''),
-(21, 'agent6', 'motdepasse21', ''),
-(22, 'agent7', 'motdepasse22', ''),
-(23, 'agent8', 'motdepasse23', ''),
-(24, 'agent9', 'motdepasse24', ''),
-(25, 'agent10', 'motdepasse25', ''),
+(20, 'agent5', 'motdepasse20', 'agents'),
+(21, 'agent6', 'motdepasse21', 'agents'),
+(22, 'agent7', 'motdepasse22', 'agents'),
+(23, 'agent8', 'motdepasse23', 'agents'),
+(24, 'agent9', 'motdepasse24', 'agents'),
+(25, 'agent10', 'motdepasse25', 'agents'),
 (26, 'patient1', 'motdepasse26', 'patients'),
-(27, 'patient2', 'motdepasse27', ''),
-(28, 'patient3', 'motdepasse28', ''),
-(29, 'patient4', 'motdepasse29', ''),
-(30, 'patient5', 'motdepasse30', ''),
-(31, 'patient6', 'motdepasse31', ''),
-(32, 'patient7', 'motdepasse32', ''),
-(33, 'patient8', 'motdepasse33', ''),
-(34, 'patient9', 'motdepasse34', ''),
-(35, 'patient10', 'motdepasse35', '');
+(27, 'patient2', 'motdepasse27', 'patients'),
+(28, 'patient3', 'motdepasse28', 'patients'),
+(29, 'patient4', 'motdepasse29', 'patients'),
+(30, 'patient5', 'motdepasse30', 'patients'),
+(31, 'patient6', 'motdepasse31', 'patients'),
+(32, 'patient7', 'motdepasse32', 'patients'),
+(33, 'patient8', 'motdepasse33', 'patients'),
+(34, 'patient9', 'motdepasse34', 'patients'),
+(35, 'patient10', 'motdepasse35', 'patients'),
+(39, 'florian13', 'florian', 'medecins'),
+(40, 'florian13', 'florian', 'medecins');
 
 -- --------------------------------------------------------
 
@@ -250,7 +263,7 @@ CREATE TABLE IF NOT EXISTS `encaissements` (
   `montant` decimal(10,2) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `patient_id` (`patient_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -267,7 +280,7 @@ CREATE TABLE IF NOT EXISTS `medecins` (
   `specialite` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_medecin` (`id_medecin`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `medecins`
@@ -285,7 +298,9 @@ INSERT INTO `medecins` (`id`, `id_medecin`, `nom`, `prenom`, `specialite`) VALUE
 (9, 12, 'Docteur9Nom', 'Docteur9Prenom', 'Chirurgien'),
 (10, 13, 'Docteur10Nom', 'Docteur10Prenom', 'Dermatologue'),
 (11, 14, 'Docteur11Nom', 'Docteur11Prenom', 'Endocrinologue'),
-(12, 15, 'Docteur12Nom', 'Docteur12Prenom', 'Gynécologue');
+(12, 15, 'Docteur12Nom', 'Docteur12Prenom', 'Gynécologue'),
+(16, 39, 'savoie', 'test', 'test'),
+(17, 39, 'savoie', 'test', 'test');
 
 -- --------------------------------------------------------
 
@@ -306,25 +321,26 @@ CREATE TABLE IF NOT EXISTS `patients` (
   `profession` varchar(50) DEFAULT NULL,
   `situation_familiale` enum('marie','celibataire','divorce','veuf') DEFAULT NULL,
   `solde` decimal(10,2) DEFAULT NULL,
+  `date_naissance` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_patient` (`id_patient`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `patients`
 --
 
-INSERT INTO `patients` (`id`, `id_patient`, `nom`, `prenom`, `nss`, `adresse`, `tel`, `email`, `profession`, `situation_familiale`, `solde`) VALUES
-(1, 26, 'Durand', 'Sophie', '2234567890123', '3 rue de la Gare, Paris', '0123456789', 'sophie.durand@gmail.com', 'Infirmière', 'celibataire', '1000.00'),
-(2, 27, 'Lefevre', 'Jean', '1234567890123', '8 rue de la Paix, Lyon', '0678901234', 'jean.lefevre@hotmail.com', 'Ingénieur', 'marie', '500.00'),
-(3, 28, 'Morel', 'Marie', '2234567890123', '14 rue des Lilas, Lille', '0456789012', 'marie.morel@yahoo.fr', 'Etudiante', 'celibataire', '150.00'),
-(4, 29, 'Dupont', 'Pierre', '1234567890123', '23 avenue des Champs-Élysées, Paris', '0789012345', 'pierre.dupont@gmail.com', 'Comptable', 'marie', '250.00'),
-(5, 30, 'Garcia', 'Laura', '2234567890123', '5 avenue de la Liberté, Toulouse', '0234567890', 'laura.garcia@hotmail.com', 'Infirmière', 'celibataire', '100.00'),
-(6, 31, 'Martin', 'David', '2234567890123', '12 rue des Roses, Nice', '0567890123', 'david.martin@yahoo.fr', 'Informaticien', 'celibataire', '0.00'),
-(7, 32, 'Leroy', 'Céline', '1234567890123', '17 avenue du Général de Gaulle, Marseille', '0789123456', 'celine.leroy@gmail.com', 'Enseignante', 'marie', '200.00'),
-(8, 33, 'Dubois', 'Vincent', '2234567890123', '9 rue de la Fontaine, Rennes', '0345678901', 'vincent.dubois@hotmail.com', 'Avocat', 'celibataire', '50.00'),
-(9, 34, 'Petit', 'Isabelle', '1234567890123', '16 avenue des Peupliers, Nantes', '0678901234', 'isabelle.petit@yahoo.fr', 'Médecin', 'divorce', '400.00'),
-(10, 35, 'Thomas', 'Lucas', '2234567890123', '2 rue du Commerce, Bordeaux', '0789012345', 'lucas.thomas@gmail.com', 'Médecin', 'divorce', '400.00');
+INSERT INTO `patients` (`id`, `id_patient`, `nom`, `prenom`, `nss`, `adresse`, `tel`, `email`, `profession`, `situation_familiale`, `solde`, `date_naissance`) VALUES
+(1, 26, 'Durand', 'Sophie', '21234567890123', '3 rue de la Gare, Paris', '0123456789', 'sophie.durand@gmail.com', 'Infirmière', 'celibataire', '1000.00', '1990-01-01'),
+(2, 27, 'Lefevre', 'Jean', '12345678901237', '8 rue de la Paix, Lyon', '0678901234', 'jean.lefevre@hotmail.com', 'Ingénieur', 'veuf', '200.00', '1960-02-02'),
+(3, 28, 'Morel', 'Marie', '22345678901234', '100 chemin de l\'est', '0458650512', 'floo@msn.fr', '$profession', 'celibataire', '2950.00', '1985-03-03'),
+(4, 29, 'Dupont', 'Pierre', '2', '23 avenue des Champs-Élysées, Paris', '0789012345', 'pierre.dupont@gmail.com', 'Comptable', 'marie', '50.00', '1970-04-04'),
+(5, 30, 'Garcia', 'Laura', '2234567890123', '5 avenue de la Liberté, Toulouse', '0234567890', 'laura.garcia@hotmail.com', 'Infirmière', 'celibataire', '100.00', '1995-05-05'),
+(6, 31, 'Martin', 'David', '22345767890123', '12 rue des Roses, Nice', '0567890123', 'david.martin@yahoo.fr', 'Informaticien', 'celibataire', '0.00', '1980-06-06'),
+(7, 32, 'Leroy', 'Céline', '81234567890123', '17 avenue du Général de Gaulle, Marseille', '0789123456', 'celine.leroy@gmail.com', 'Enseignante', 'marie', '200.00', '1992-07-07'),
+(8, 33, 'Dubois', 'Vincent', '22345667890123', '9 rue de la Fontaine, Rennes', '0345678901', 'vincent.dubois@hotmail.com', 'Avocat', 'celibataire', '50.00', '1975-08-08'),
+(9, 34, 'Petit', 'Isabelle', '12374567890123', '16 avenue des Peupliers, Nantes', '0678901234', 'isabelle.petit@yahoo.fr', 'Médecin', 'divorce', '200.00', '1988-09-09'),
+(10, 35, 'Thomas', 'Lucas', '22345567890123', '2 rue du Commerce, Bordeaux', '0789012345', 'lucas.thomas@gmail.com', 'Médecin', 'divorce', '400.00', '1971-10-10');
 
 -- --------------------------------------------------------
 
@@ -339,7 +355,7 @@ CREATE TABLE IF NOT EXISTS `pieces_fournir` (
   `piece` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `acte_id` (`acte_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `pieces_fournir`
@@ -348,8 +364,8 @@ CREATE TABLE IF NOT EXISTS `pieces_fournir` (
 INSERT INTO `pieces_fournir` (`id`, `acte_id`, `piece`) VALUES
 (1, 1, 'Carte vitale'),
 (2, 2, 'Ordonnance'),
-(3, 3, 'Résultats d\'examens'),
-(4, 4, 'Résultats d\'examens'),
+(3, 3, 'resultat d\'examens du jour anuel'),
+(4, 3, 'resultat semaine'),
 (5, 5, 'Résultats d\'examens');
 
 -- --------------------------------------------------------
@@ -376,7 +392,23 @@ CREATE TABLE IF NOT EXISTS `rdv` (
   KEY `patient_id` (`patient_id`),
   KEY `medecin_id` (`medecin_id`),
   KEY `acte_id` (`acte_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `rdv`
+--
+
+INSERT INTO `rdv` (`id`, `patient_id`, `medecin_id`, `acte_id`, `date_heure`, `motif`, `pieces_fournir`, `consignes`, `suivi`, `compte_rendu`, `prix`, `statut`) VALUES
+(31, 29, 4, 2, '2023-03-23 09:53:46', 'Cardiologue', 'Aucune pièce à fournir', 'Aucune consigne', 'Aucun suivi', 'Aucun compte rendu', '100.00', 'en_attente'),
+(32, 32, 4, 3, '2023-03-24 09:53:46', 'Chirurgien', 'Aucune pièce à fournir', 'Aucune consigne', 'Aucun suivi', 'Aucun compte rendu', '200.00', 'en_attente'),
+(33, 27, 8, 3, '2023-03-24 00:00:00', 'Rhumatologue', 'Aucune pièce à fournir', 'Aucune consigne', 'Aucun suivi', 'Aucun compte rendu', '200.00', 'paye'),
+(34, 29, 4, 3, '2023-03-23 09:53:46', 'Gynécologue', 'Aucune pièce à fournir', 'Aucune consigne', 'Aucun suivi', 'Aucun compte rendu', '200.00', 'paye'),
+(35, 27, 8, 2, '2023-03-25 09:53:46', 'Rhumatologue', 'Aucune pièce à fournir', 'Aucune consigne', 'Aucun suivi', 'Aucun compte rendu', '100.00', 'en_attente'),
+(36, 28, 4, 2, '2023-03-20 00:53:46', 'Cardiologue', 'Aucune pièce à fournir', 'Aucune consigne', 'Aucun suivi', 'Aucun compte rendu', '150.00', 'paye'),
+(37, 31, 6, 4, '2020-03-25 09:53:46', 'Psychiatre', 'Aucune pièce à fournir', 'Aucune consigne', 'Aucun suivi', 'Aucun compte rendu', '300.00', 'en_attente'),
+(38, 34, 4, 1, '2023-01-27 09:53:46', 'Neurologue', 'Aucune pièce à fournir', 'Aucune consigne', 'Aucun suivi', 'Aucun compte rendu', '50.00', 'paye'),
+(39, 31, 3, 5, '2023-03-23 09:53:46', 'Neurologue', 'Aucune pièce à fournir', 'Aucune consigne', 'Aucun suivi', 'Aucun compte rendu', '500.00', 'en_attente'),
+(40, 32, 2, 2, '2023-03-23 09:53:46', 'Gastro-entérologue', 'Aucune pièce à fournir', 'Aucune consigne', 'Aucun suivi', 'Aucun compte rendu', '100.00', 'en_attente');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

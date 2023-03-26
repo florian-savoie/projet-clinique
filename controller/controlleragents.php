@@ -111,3 +111,42 @@ $alertpaiement = "fond insufisant";
       return array('resultat' => $resultat, 'date' => $datedebut);
     }
   }
+
+function actemedicaux(){
+      $requete = "SELECT nom , prix FROM actes_medicaux";
+    $typeacte = bdd0Bindparam($requete);
+    return $typeacte;
+}
+
+  function recupinfosEnregistrementRdv( $nss,$nomdocteur,$category,$typeconsultation,$timestamps){
+   echo $nss. $nomdocteur. $category. $typeconsultation ;
+
+  /* if (!empty($_POST["numeronss"]) && !empty($_GET['nomdocteur']) && !empty($_GET['category']) && !empty($_POST['typeconsultation'])) {*/
+$requete = "SELECT id_medecin FROM medecins WHERE nom = :parametre1";
+$idmedecin = bdd1Bindparam($requete,$nomdocteur);
+$idmedecin = $idmedecin->fetchAll();
+
+$requete = "SELECT id_patient FROM patients  WHERE nss = :parametre1";
+$idpatient = bdd1Bindparam($requete,$nss);
+$idpatient = $idpatient->fetchAll();
+echo $timestamps;
+$date = date('Y-m-d H:i:s', $timestamps);
+echo $date ."<br>"; // affiche "2023-03-06 00:00:00"
+
+$requete2 = "SELECT a.id , a.prix ,p.piece ,c.consigne  FROM actes_medicaux a , pieces_fournir p , consignes c WHERE c.acte_id = a.id AND p.acte_id = a.id  AND a.nom = :parametre1 LIMIT 1";
+$resultat = bdd1Bindparam($requete2,$typeconsultation);
+$resultat = $resultat->fetchAll();
+var_dump($resultat);
+
+
+$requete3 = "INSERT INTO rdv (patient_id ,medecin_id ,date_heure ,motif ,pieces_fournir ,consignes ,prix)VALUES (:parametre1, :parametre2, :parametre3 ,:parametre4, :parametre5, :parametre6 ,:parametre7)";
+bdd7Bindparam($requete3,$idpatient["0"]["id_patient"],$idmedecin["0"]["id_medecin"],$date,$category,$resultat["0"]["piece"],$resultat["0"]["consigne"],$resultat["0"]["prix"]);
+
+
+return array('idmedecin' => $idmedecin, 'resultat' => $resultat);
+
+
+   echo "error";
+
+
+  }

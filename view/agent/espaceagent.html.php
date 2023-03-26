@@ -338,16 +338,16 @@
                                 <select class="form-control" name="categoryrdv" id="categoryrdv">
 
                                     <option value="" disabled selected>Type de rendez-vous</option>
-                                  <?php  foreach ($medecin as $cat) {?>  <option value="<?= $cat["specialite"]?>"><?= $cat["specialite"]?></option>
-<?php } ?>
+                                    <?php foreach ($medecin as $cat) { ?> <option value="<?= $cat["specialite"] ?>"><?= $cat["specialite"] ?></option>
+                                    <?php } ?>
                                 </select>
                             </div>
                             <select class="form-control" name="semainechoisie" id="semainechoisie">
 
-<option value="" disabled selected>choix de la semaine </option>
-<?php  for ($i=1 ; $i < 52 ;$i++) {?>  <option value="<?= $i?>">semaine <?= $i?></option>
-<?php } ?>
-</select>
+                                <option value="" disabled selected>choix de la semaine </option>
+                                <?php for ($i = 1; $i < 52; $i++) { ?> <option value="<?= $i ?>">semaine <?= $i ?></option>
+                                <?php } ?>
+                            </select>
                             <button type="submit" class="btn btn-primary" value="shearchplanningmedecin" name="shearchplanningmedecin">Regarder les disponibilités</button>
 
                         </form>
@@ -356,111 +356,110 @@
             </div>
 
 
-   <?php
+            <?php
 
 
-   if ( isset($tableaurdv))  {
+            if (isset($tableaurdv)) {
 
-        $datedebut = $tableaurdv['date'] ;
+                $datedebut = $tableaurdv['date'];
 
-        $timestamp = strtotime($datedebut);
-        $timestampjour = 86400;
-        $timestampdemisjournée = 43200;
-        $timestampsemaine = $timestampjour * 7;
-        $timestamprdv = [];
-
-
-       foreach ($tableaurdv['resultat'] as $rdv ){
-        $rdv_timestamp = strtotime($rdv['date_heure']);
-        array_push($timestamprdv, $rdv_timestamp);
-        }
-        
-        $timestampdelasemaine = [];
-        for ($e = $timestamp ; $e < $timestamp+$timestampsemaine ; $e += $timestampdemisjournée) {
-          array_push($timestampdelasemaine, $e);
-        }
-
-foreach ($timestamprdv as $verifrdv){
-            $index = 0 ;
-foreach ($timestampdelasemaine as $agendasemaine){
-    if ($verifrdv > $agendasemaine && $verifrdv < $agendasemaine+$timestampdemisjournée){
-        $timestampdelasemaine[$index] = 'rdv';
-        $index++;
-    }else{
-        $index++;
-
-    }
-}
-}
-
-$tableaujour = [
-    "lundi",
-    "mardi",
-    "mercredi",
-    "jeudi",
-    "vendredi",
-    "samedi",
-    "dimanche"
-];
+                $timestamp = strtotime($datedebut);
+                $timestampjour = 86400;
+                $timestampdemisjournée = 43200;
+                $timestampsemaine = $timestampjour * 7;
+                $timestamprdv = [];
 
 
-    ?>
+                foreach ($tableaurdv['resultat'] as $rdv) {
+                    $rdv_timestamp = strtotime($rdv['date_heure']);
+                    array_push($timestamprdv, $rdv_timestamp);
+                }
 
-<div class="container mt-3">
-  <h2></h2>
-  <p>voici les dates disponible pour la semaine <?= $_POST['semainechoisie'] ?></p>            
-  <table class="table table-hover">
-    <thead>
-      <tr>
-       <?php for ($i = 0 ; $i < 7 ; $i++) {
-  $timestamp = strtotime($datedebut . " +".$i." day");
-  $date = date("Y/m/d", $timestamp);
-  $jour = date("l", $timestamp);
-  echo "<th>".$date."<br>".$tableaujour[$i]."</th>";
-}?> 
+                $timestampdelasemaine = [];
+                for ($e = $timestamp; $e < $timestamp + $timestampsemaine; $e += $timestampdemisjournée) {
+                    array_push($timestampdelasemaine, $e);
+                }
 
-      </tr>
-    </thead>
-    <tbody>
-    <tr>
-    <?php for($m = 0 ; $m < 14 ; $m+=2) { 
-        if ($timestampdelasemaine[$m] == "rdv"){ ?>
-            <td><button type="button" class="btn btn-danger">indisponible</button></td>
-       <?php  }else { ?>
-            <td>
-                <form action="agents.php?" method="get">
-                <input type="hidden" name="priserdv" value="show">
-                    <input type="hidden" name="timestamp" value="<?= $timestampdelasemaine[$m] ?>">
-                    <input type="hidden" name="docteurname" value="<?= $docteurname ?>">
-                    <input type="hidden" name="category" value="<?= $categorydocteur ?>">
-                    <button type="submit" class="btn btn-success">disponible</button>
-                </form>
-            </td>
-       <?php  }
-    } ?>
-    </tr>
-    <tr>
-    <?php for($a = 1 ; $a < 15 ; $a+=2) { 
-        if ($timestampdelasemaine[$a] == "rdv"){ ?>
-            <td><button type="button" class="btn btn-danger">indisponible</button></td>
-       <?php  }else { ?>
-            <td>
-                <form action="agents.php?" method="get">
-                    <input type="hidden" name="priserdv" value="show">
-                    <input type="hidden" name="timestamp" value="<?= $timestampdelasemaine[$a] ?>">
-                    <input type="hidden" name="docteurname" value="<?= $docteurname ?>">
-                    <input type="hidden" name="category" value="<?= $categorydocteur ?>">
-                    <button type="submit" class="btn btn-success">disponible</button>
-                </form>
-            </td>
-       <?php  }
-    } ?>
-    </tr>
-</tbody>
-  </table>
-</div>
-       
- <?php   }
+                foreach ($timestamprdv as $verifrdv) {
+                    $index = 0;
+                    foreach ($timestampdelasemaine as $agendasemaine) {
+                        if ($verifrdv >= $agendasemaine && $verifrdv < $agendasemaine + $timestampdemisjournée) {
+                            $timestampdelasemaine[$index] = 'rdv';
+                            $index++;
+                        } else {
+                            $index++;
+                        }
+                    }
+                }
+
+                $tableaujour = [
+                    "lundi",
+                    "mardi",
+                    "mercredi",
+                    "jeudi",
+                    "vendredi",
+                    "samedi",
+                    "dimanche"
+                ];
+
+
+            ?>
+
+                <div class="container mt-3">
+                    <h2></h2>
+                    <p>voici les dates disponible pour la semaine <?= $_POST['semainechoisie'] ?></p>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <?php for ($i = 0; $i < 7; $i++) {
+                                    $timestamp = strtotime($datedebut . " +" . $i . " day");
+                                    $date = date("Y/m/d", $timestamp);
+                                    $jour = date("l", $timestamp);
+                                    echo "<th>" . $date . "<br>" . $tableaujour[$i] . "</th>";
+                                } ?>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <?php for ($m = 0; $m < 14; $m += 2) {
+                                    if ($timestampdelasemaine[$m] == "rdv") { ?>
+                                        <td><button type="button" class="btn btn-danger">indisponible</button></td>
+                                    <?php  } else { ?>
+                                        <td>
+                                            <form action="agents.php?" method="get">
+                                                <input type="hidden" name="priserdv" value="show">
+                                                <input type="hidden" name="timestamp" value="<?= $timestampdelasemaine[$m] ?>">
+                                                <input type="hidden" name="docteurname" value="<?= $docteurname ?>">
+                                                <input type="hidden" name="category" value="<?= $categorydocteur ?>">
+                                                <button type="submit" class="btn btn-success">disponible</button>
+                                            </form>
+                                        </td>
+                                <?php  }
+                                } ?>
+                            </tr>
+                            <tr>
+                                <?php for ($a = 1; $a < 15; $a += 2) {
+                                    if ($timestampdelasemaine[$a] == "rdv") { ?>
+                                        <td><button type="button" class="btn btn-danger">indisponible</button></td>
+                                    <?php  } else { ?>
+                                        <td>
+                                            <form action="agents.php?" method="get">
+                                                <input type="hidden" name="priserdv" value="show">
+                                                <input type="hidden" name="timestamp" value="<?= $timestampdelasemaine[$a] ?>">
+                                                <input type="hidden" name="docteurname" value="<?= $docteurname ?>">
+                                                <input type="hidden" name="category" value="<?= $categorydocteur ?>">
+                                                <button type="submit" class="btn btn-success">disponible</button>
+                                            </form>
+                                        </td>
+                                <?php  }
+                                } ?>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+        <?php   }
         }
         ?>
         <!-- rechercher  nss grace au nom client et date de naissance  -->
@@ -560,7 +559,46 @@ $tableaujour = [
         } ?>
 
 
+        <!-- enregistrer un patient  dans le planning d'un docteur   -->
+        <?php
+        if (isset($_GET['priserdv']) && $_GET['priserdv'] === 'show') { 
+        ?>
 
+            <!-- Formulaire de  -->
+            <div class="container">
+                <h4>vous souhaiter prendre rendez vous le avec monsieur pour une consultation de type </h4>
+                <form method="POST" action="">
+                    <div class="form-group">
+                        <label for="numeronss">Numero nss du patient :</label>
+                        <input type="text" class="form-control" id="numeronss" name="numeronss">
+                        <label for="nomdocteur">nom du docteur :</label>
+
+                        <select class="form-control" name="nomdocteur" id="nomdocteur">
+
+                            <option value="<?= $_GET['docteurname'] ?>" ><?= $_GET['docteurname'] ?></option>
+
+                        </select>
+
+                        <label for="motif">motif de consultation :</label>
+
+                        <select class="form-control" name="motif" id="motif">
+
+                            <option value="<?= $_GET['category'] ?>" ><?= $_GET['category'] ?></option>
+
+                        </select>
+                        <label for="typeconsultation">type de consultation :</label>
+
+                        <select class="form-control" name="typeconsultation" id="typeconsultation">
+                        <?php   foreach ( $typeacte as $acte) { ?>
+                            <option value="<?= $acte["nom"] ?>" > <?= $acte["nom"]. " aux prix de ".$acte["prix"]." euros" ?></option>
+                         <?php  } ?>
+                         </select>
+                        <button type="submit" class="btn btn-primary" name="priserdv">enregistrer rendez-vous</button>
+                </form>
+            </div>
+
+        <?php 
+        } ?>
 
     </div>
 

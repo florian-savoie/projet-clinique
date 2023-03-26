@@ -76,6 +76,27 @@ function bdd4Bindparam($requete,$parametre1,$parametre2,$parametre3,$parametre4)
         die('Une erreur a été trouvée : ' . $e->getMessage());
     }  
 }
+
+function bdd7Bindparam($requete,$parametre1,$parametre2,$parametre3,$parametre4,$parametre5,$parametre6,$parametre7){
+    try {
+        $bdd = getdatabases();
+        $requete = $bdd->prepare($requete);
+        $requete->bindParam(':parametre1', $parametre1);
+        $requete->bindParam(':parametre2', $parametre2);
+        $requete->bindParam(':parametre3', $parametre3);
+        $requete->bindParam(':parametre4', $parametre4);
+        $requete->bindParam(':parametre5', $parametre5);
+        $requete->bindParam(':parametre6', $parametre6);
+        $requete->bindParam(':parametre7', $parametre7);
+        $requete->execute();
+        return $requete;
+
+    } catch(Exception $e) {
+        die('Une erreur a été trouvée : ' . $e->getMessage());
+    }  
+}
+
+
 function searchAgentBdd($identifiant)
 {
     try {

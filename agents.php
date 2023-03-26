@@ -92,6 +92,26 @@ if ($_SESSION['role'] == "agents") {
 
 
 
+    // enregistrer un rdv
+    if (isset($_GET['priserdv'])) {
+        $typeacte =actemedicaux();
+
+        if ( isset($_POST['priserdv'])){
+            $nss =  $_POST["numeronss"];
+            $nomdocteur = $_GET["docteurname"];
+            $category = $_GET["category"];
+            $timestamps = $_GET["timestamp"];
+            $typeconsultation =  $_POST["typeconsultation"];
+                    $resultats = recupinfosEnregistrementRdv( $nss,$nomdocteur,$category,$typeconsultation,$timestamps);
+                    var_dump($resultats);
+                    echo $resultats["resultat"]["0"]['consigne'];
+        }else {
+            echo "error";
+        }
+    }
+
+
+
 
 } else {
     // Rediriger l'utilisateur sur la page d'accueil
